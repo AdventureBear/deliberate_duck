@@ -1,0 +1,41 @@
+<% include ../partials/header.ejs %>
+
+
+
+<div class="ui inverted aligned segment ">
+    <div class="ui text container" id="page">
+        <h1 class="ui inverted header">
+           New User Story for <%= project.name %>
+        </h1>
+
+             <div class="ui inverted form">
+                <form action="/projects/<%= project._id %>/stories" method="POST">
+                    <div class = "field">
+                       <label>Story Name</label>
+                       <input name="story[name]" placeholder="Story name"></input>
+                   </div>
+                   <div class = "field">
+                     <label>As a</label>
+                     <input name="story[asA]" placeholder="user"></input>
+                   </div>
+                   <div class = "field inverted">
+                      <label>I Want</label>
+                      <input name="story[iWant]" placeholder="to add a story"></input>
+                   </div>
+                   <div class="field inverted">
+                     <label>So that</label>
+                     <textarea name="story[soThat]"></textarea>
+                   </div>
+                   <div class="field inverted">
+                      <label>Details & Additional Information</label>
+                      <textarea name="story[details]"></textarea>
+                   </div>
+                     <input class="ui button   blue big" type="submit">
+                </form>
+             </div>
+    </div>
+</div>
+
+
+
+<% include ../partials/footer.ejs %>

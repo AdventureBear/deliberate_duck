@@ -1,0 +1,69 @@
+<% include ../partials/header.ejs %>
+
+<div id="page" class="ui container">
+
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui  segments">
+                    <div class="ui segment inverted  blue">
+                            Project 1
+                    </div>
+                    <div class="ui segment">
+                        Project 2
+                    </div>
+                    <div class="ui segment">
+                        Project 3
+                    </div>
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <div class="ui raised segment ">
+                    <h2 class="ui header">
+                        Project Details - <%= project.name %>
+                    </h2>
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="">Added by: <%= project.owner.username%> </a>
+
+                                    <div class="description">
+                                        <%= project.description %>
+                                    </div>
+                                    <div class="extra">
+                                        <a href="./<%= project._id %>/edit"><button class="ui button basic big green">Edit</button></a>
+                                        <form id="form_button" method="POST" action="./<%= project._id %>?_method=DELETE"><button class="ui button basic big red">Delete</button></form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <h2>User Stories for this project: </h2>
+                        <% project.stories.forEach(function(story){ %>
+                            <div class="ui raised segment">
+                                <div class="ui container">
+                                <div class="ui header">
+                                    <a href="/projects/<%= project._id %>/stories/<%=story._id%>"><%= story.name %></a>
+                                </div>
+                                <div class="content">
+                                    <p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>
+                                </div>
+                                </div>
+                            </div>
+                        <% })%>
+                        <div class="extra">
+                            <a href="/projects/<%=project._id%>/stories/new"><button class="ui button big green basic">Add Story</button></a>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

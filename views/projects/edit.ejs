@@ -1,0 +1,35 @@
+<% include ../partials/header.ejs %>
+
+<div id="page" class="ui segment">
+    <div class="ui container">
+        <div class="ui raised text items container attached">
+            <h2 class="ui header">
+                Project Details
+            </h2>
+
+            <a href="./"><button class="ui button basic big blue">Back</button></a>
+
+            <h1 class="ui  header">
+                Edit <%= project.name %>
+            </h1>
+
+            <div class="ui  form">
+                <form action="/projects/<%= project._id %>?_method=PUT" method="POST">
+                    <div class = "field">
+                        <label>Project Name</label>
+                        <input name="name" placeholder="Project name" value="<%= project.name %>"></input>
+                    </div>
+
+                    <div class="field ">
+                        <label>Details & Additional Information</label>
+                        <textarea name="description"><%=project.description %></textarea>
+                    </div>
+                    <input class="ui button   blue big" type="submit">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

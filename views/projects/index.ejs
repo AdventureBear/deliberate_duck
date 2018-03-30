@@ -1,0 +1,54 @@
+<% include ../partials/header.ejs %>
+
+<div id="page" class="ui container">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui  segments">
+                <div class="ui segment inverted  blue">
+                    Menu 1
+                </div>
+                <div class="ui segment">
+                    Menu 2
+                </div>
+                <div class="ui segment">
+                    Menu 3
+                </div>
+            </div>
+        </div>
+
+        <div class="twelve wide column">
+            <div class="ui raised segment ">
+                <h2 class="ui header">
+                    All Projects
+                </h2>
+
+                <div class="ui items">
+                    <% projects.forEach(function(project){ %>
+                    <div class="item">
+                        <div class="image">
+                            <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>
+                            <div class="meta">
+                                <span>Project: <%= project.name %></span> - <%= project.stories.length %> Stories
+                            </div>
+                            <div class="description">
+                               <%= project.description %>
+                            </div>
+                            <div class="extra">
+                                <p> <span>Added by: <%= project.owner.username %></span></p>
+                                <a href="./projects/<%= project._id %>">Additional Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+
+                    <a href="./projects/new"><button class="ui button basic big green">New</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

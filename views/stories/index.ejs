@@ -1,0 +1,37 @@
+<% include ../partials/header.ejs %>
+
+<div id="page" class="ui segment">
+    <div class="ui container">
+        <div class="ui raised text items container attached">
+            <h2 class="ui header">
+               All User Stories
+            </h2>
+            <a href="./stories/new"><button class="ui button basic big green">New</button></a>
+            <% stories.forEach(function(story){ %>
+                <div class="item">
+                    <div class="image">
+                      <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                    </div>
+                    <div class="content">
+                      <a class="header" href="./stories/<%= story._id %>"><%= story.name %></a>
+                      <div class="meta">
+                        <span>Project: TriCoach Tools</span>
+                      </div>
+                      <div class="description">
+                        <p>As a <span><%= story.asA %></span>
+                        I want <span><%= story.iWant %></span>
+                        so that <span><%= story.soThat %></span>
+                        </p>
+                      </div>
+                      <div class="extra">
+                        <p> <span>Added by: Michael</span></p>
+                        <a href="./stories/<%= story._id %>">Additional Details</a>
+                      </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

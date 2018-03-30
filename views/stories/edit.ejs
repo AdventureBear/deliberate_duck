@@ -1,0 +1,46 @@
+<% include ../partials/header.ejs %>
+
+<div id="page" class="ui segment">
+    <div class="ui container">
+        <div class="ui raised text items container attached">
+            <h2 class="ui header">
+              Stories Details
+            </h2>
+
+            <a href="./"><button class="ui button basic big blue">Back</button></a>
+
+                <h1 class="ui  header">
+                           Edit <%= story.name %>
+                        </h1>
+
+                             <div class="ui  form">
+                                <form action="/stories/<%= story._id %>?_method=PUT" method="POST">
+                                    <div class = "field">
+                                       <label>Story Name</label>
+                                       <input name="name" placeholder="Story name" value="<%= story.name %>"></input>
+                                   </div>
+                                   <div class = "field">
+                                     <label>As a</label>
+                                     <input name="asA" placeholder="user" value="<%=story.asA %>"></input>
+                                   </div>
+                                   <div class = "field ">
+                                      <label>I Want</label>
+                                      <input name="iWant" placeholder="to add a story" value="<%=story.iWant %>"></input>
+                                   </div>
+                                   <div class="field ">
+                                     <label>So that</label>
+                                     <textarea name="soThat">value="<%=story.soThat %>"</textarea>
+                                   </div>
+                                   <div class="field ">
+                                      <label>Details & Additional Information</label>
+                                      <textarea name="details"><%=story.details %></textarea>
+                                   </div>
+                                     <input class="ui button   blue big" type="submit">
+                                </form>
+                             </div>
+
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
