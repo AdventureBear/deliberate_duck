@@ -73,12 +73,13 @@ function seedDB() {
 
         Project.create(project, function(err, createdProject){
           if (err) console.log(err)
-          Stories[i].forEach(function(story){
+          Stories[i].forEach(function(story, j){
             Story.create(story, function(err, createdStory){
               if (err) console.log(err)
-              console.log("Seeded DB with: " + createdStory)
+              //console.log("Seeded DB with: " + createdStory)
               createdProject.stories.push(createdStory)
               createdProject.save()
+              console.log("Project " + (i +1) + ", Story " + (j+1) + " created")
             })
           })
 

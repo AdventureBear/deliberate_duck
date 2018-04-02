@@ -18,25 +18,25 @@
 <div class="ui large top fixed menu">
   <div class="ui container">
     <a href="/" class="active item">Home</a>
-    <a class="item">Users</a>
+    <a href="/users" class="item">Users</a>
     <a class="item" href="/projects">Projects</a>
 
     <div class="right menu">
-      <% if (currentUser) { %>
-      <div class="item">
-        Hello, <%= currentUser.username %>!
-      </div>
-      <div class="item">
-        <a class="ui primary button" href="/logout">Logout</a>
-      </div>
-      <% } else { %>
-      <div class="item">
-        <a class="ui button" href="/login">Log in</a>
-      </div>
-      <div class="item">
-        <a class="ui primary button" href="/register">Sign Up</a>
-      </div>
-      <% } %>
+
+        <div class="item">
+            <a class="ui button" href="/login">Log in</a>
+        </div>
+        <div class="item">
+            <a class="ui primary button" href="/register">Sign Up</a>
+        </div>
+
+        <div class="item">
+            Hello, User!
+        </div>
+        <div class="item">
+            <a class="ui primary button" href="/logout">Logout</a>
+        </div>
+
 
     </div>
   </div>

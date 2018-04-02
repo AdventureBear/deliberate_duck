@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+
+<div id="page" class="ui container">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui  segments">
+                <div class="ui segment ">
+                    Thing 1
+                </div>
+                <div class="ui inverted blue segment">
+                    Thing 2
+                </div>
+                <div class="ui segment">
+                    Thing 3
+                </div>
+            </div>
+        </div>
+
+        <div class="twelve wide column">
+            <div class="ui raised segment ">
+                <h2 class="ui header">
+                    All Users
+                </h2>
+
+                <div class="ui items">
+                    <% users.forEach(function(user){ %>
+                    <div class="item">
+                        <div class="image">
+                            <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="./users/<%= user._id %>"><%= user.username %></a>
+
+                        </div>
+                    </div>
+                    <% }) %>
+
+                    <a href="../register"><button class="ui button basic big green">New</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
