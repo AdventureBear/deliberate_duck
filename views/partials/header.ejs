@@ -22,21 +22,21 @@
     <a class="item" href="/projects">Projects</a>
 
     <div class="right menu">
-
+        <% if (!currentUser) { %>
         <div class="item">
             <a class="ui button" href="/login">Log in</a>
         </div>
         <div class="item">
             <a class="ui primary button" href="/register">Sign Up</a>
         </div>
-
+        <% } else { %>
         <div class="item">
-            Hello, User!
+            Hello, <%= currentUser.username %>!
         </div>
         <div class="item">
             <a class="ui primary button" href="/logout">Logout</a>
         </div>
-
+        <% } %>
 
     </div>
   </div>
