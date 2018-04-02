@@ -18,15 +18,11 @@ var Story =     require('./models/story'),
 
 // route includes
 
-var storyRoutes = require('./routes/stories'),
-    projectRoutes = require('./routes/projects'),
-    userRoutes = require('./routes/users')
+var  userRoutes = require('./routes/users')
 
 
 // Route setup
 
-app.use("/projects/:id/stories", storyRoutes)
-app.use("/projects", projectRoutes)
 app.use("/users", userRoutes)
 
 
@@ -115,8 +111,203 @@ app.get("/logout", function(req,res) {
 })
 
 
-//==================================================
+//===========================
+//Project Routes
+//===========================
 
+//INDEX ROUTE
+
+
+app.get("/projects", function(req,res) {
+  console.log(req.user)
+  Project.find({}, function(err, projects){
+    if (err) {
+      console.log(err)
+    } else {
+      res.render("./projects/index", {projects: projects})
+    }
+  })
+})
+//
+//NEW ROUTE
+app.get("/projects/new", function(req,res){
+  res.render("./projects/new")
+  //console.log(req.body)
+})
+
+// //CREATE ROUTE
+app.post("/projects", function(req,res){
+  Project.create(req.body, function(err, createdProject){
+    if (err) {
+      console.log(err)
+    } else {
+      //console.log(req.body)
+      res.redirect("/projects")
+    }
+  })
+})
+
+
+//SHOW ROUTE
+app.get("/projects/:id", function(req,res) {
+  Project.findById(req.params.id).populate("stories").exec(function (err, foundProject) {
+    if (err) {
+      console.log(err)
+      res.redirect("/projects")
+    } else {
+      //console.log("Show route, " + foundProject)
+      res.render("./projects/show", {project: foundProject})
+    }
+  })
+})
+
+
+// //EDIT ROUTE
+app.get("/projects/:id/edit", function(req, res){
+  Project.findById({_id: req.params.id}, function(err, foundProject){
+    if (err) {
+      console.log(err)
+    } else {
+      //console.log(foundStory)
+      res.render("./projects/edit", {project: foundProject})
+    }
+  })
+})
+//
+// //UPDATE Route
+app.put("/projects/:id", function(req, res){
+  Project.findByIdAndUpdate(req.params.id, req.body, function(err, updatedProject){
+    if (err) {
+      console.log(err)
+      res.redirect("/projects/" + req.params.id)
+    }
+    res.redirect("/projects")
+  })
+
+})
+//
+// //DESTROY Route
+app.delete("/projects/:id", function(req,res){
+  Project.findByIdAndRemove(req.params.id, function(err){
+    if (err) {
+      console.log(err)
+      res.redirect("/projects/" + req.params.id)
+    } else {
+      res.redirect("/projects")
+    }
+
+  })
+})
+
+//===========================
+//STORY ROUTES
+//===========================
+
+
+//NEW ROUTE
+app.get("/projects/:id/stories/new", isLoggedIn, function(req,res){
+  Project.findById(req.params.id, function(err, foundProject){
+    if(err) console.log(err)
+    res.render("./stories/new", {project: foundProject})
+  })
+
+})
+
+//CREATE ROUTE
+app.post("/projects/:id/stories", isLoggedIn, function(req,res){
+  Project.findById(req.params.id, function(err, foundProject){
+    if (err) {
+      console.log(err)
+      res.redirect("/projects")
+    } else {
+      Story.create(req.body.story, function(err, createdStory){
+        if (err) {
+          console.log(err)
+        } else {
+          //console.log(typeof(req.user.id))
+          createdStory.owner.id = req.user._id
+          createdStory.owner.username = req.user.username
+          createdStory.save()
+          foundProject.stories.push(createdStory)
+          foundProject.save()
+          //console.log(req.body)
+          res.redirect("/projects/:id")
+        }
+      })
+
+    }
+
+  })
+
+})
+
+//SHOW ROUTE
+app.get("/projects/:id/stories/:story_id", function(req,res) {
+  Project.findById(req.params.proj_id, function (err, project){
+    if (err) {
+      console.log(err)
+      res.redirect("/projects/" + req.params.proj_id)
+    } else {
+      Story.findById(req.params.story_id, function (err, foundStory) {
+        if (err) {
+          console.log(err)
+          res.redirect("/projects/" + req.params.proj_id)
+        } else {
+          //console.log("Show route, " + foundStory)
+          res.render("./stories/show", {story: foundStory})
+        }
+      })
+
+    }
+
+  })
+
+})
+
+//EDIT ROUTE
+app.get("/projects/:id/stories/:story_id/edit", function(req, res){
+  Project.findById(req.params.proj_id, function (err, project) {
+    if (err) {
+      console.log(err)
+      res.redirect("/projects/" + req.params.proj_id)
+    } else {
+      Story.findById({_id: req.params.id}, function (err, foundStory) {
+        if (err) {
+          console.log(err)
+        } else {
+          //console.log(foundStory)
+          res.render("./stories/edit", {story: foundStory})
+        }
+      })
+    }
+  })
+})
+
+//UPDATE Route
+app.put("/projects/:id/stories/:id", function(req, res){
+  Story.findByIdAndUpdate(req.params.id, req.body, function(err, updatedStory){
+    if (err) {
+      console.log(err)
+      res.redirect("/stories/" + req.params.id)
+    }
+    res.redirect("/stories")
+  })
+
+})
+
+//DESTROY Route
+app.delete("/projects/:id/stories/:id", function(req,res){
+  Story.findByIdAndRemove(req.params.id, function(err){
+    if (err) {
+      console.log(err)
+      res.redirect("/stories/" + req.params.id)
+    } else {
+      res.redirect("/stories")
+    }
+
+  })
+})
+//===========================
 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
