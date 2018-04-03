@@ -73,6 +73,12 @@ html {
     padding: 5em 0em;
 }
 
+.ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+}
+
+
 .secondary.pointing.menu .toc.item {
     display: none;
 }
@@ -100,3 +106,4 @@ html {
         font-size: 1.5em;
     }
 }
+
