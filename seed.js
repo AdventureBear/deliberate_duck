@@ -5,6 +5,7 @@ var mongoose = require('mongoose')
 var Story = require('./models/story')
 var Project = require('./models/project')
 
+var today = new Date()
 var Projects = [{
   name: "TriCoach Tools",
   description: "Helping Coaches track athletes, race schedules and season planning.",
@@ -21,16 +22,22 @@ var Stories = [
     iWant: "to add an athlete",
     soThat: "I can manage their training",
     details: "Coaches need to keep track of their athletes, but also manage each individual atheltes training schedule. By adding the athelte the coach should automatically be associated with that athlete, and the athlete with the coach. ",
-    created:  Date.now(),
-    owner: { username: "Elliot"}
+    created:  today,
+    due: today.setDate(today.getDate() + 7),
+    owner: { username: "Elliot"},
+    assignedTo: { username: "Elliot"},
+    completed: true
   }, {
     name: "Add a race",
     asA: "Coach",
     iWant: "to add a race to an athlete's schedule",
     soThat: "I can manage their training",
     details: "Coaches need to know the athlete's races prior to beginning season planning in order to create appropriate trianing progressions to perform best for each race",
-    created:  Date.now(),
-    owner: { username: "Elliot"}
+    created:  today,
+    due: today.setDate(today.getDate() + 10),
+    owner: { username: "Elliot"},
+    assignedTo: { username: "Fig"},
+    completed: false
   }, {
     name: "Enter Race Results",
     asA: "Athlete",
@@ -38,7 +45,10 @@ var Stories = [
     soThat: "I can track my racing and share results with my coach",
     details: "After a race I want to either upload my garmin, or type in the manual details for my recent race. ",
     created:  Date.now(),
-    owner: { username: "admin"}
+    due: today.setDate(today.getDate() + 3),
+    owner: { username: "admin"},
+    assignedTo: { username: "Fig"},
+    completed: false
   }],
   [
     {
@@ -48,7 +58,10 @@ var Stories = [
       soThat: "I can track my progress over time",
       details: "Climbing grades are general but over time tracking them can tell me if I'm improving",
       created:  Date.now(),
-      owner: { username: "Toby"}
+      due: today.setDate(today.getDate() + 7),
+      owner: { username: "Toby"},
+      assignedTo: { username: "Fig"},
+      completed: false
     },
     {
       name: "Create a route",
@@ -57,7 +70,10 @@ var Stories = [
       soThat: "we can rotate routes every 3 weeks",
       details: "Each face will have it's typical number of climbs and every 3 weeks we'll replace a new face in the gum with fresh routes ",
       created:  Date.now(),
-      owner: { username: "Mr. Robot"}
+      due: today.setDate(today.getDate() + 5),
+      owner: { username: "Mr. Robot"},
+      assignedTo: { username: "Toby"},
+      completed: false
     }
 
   ]

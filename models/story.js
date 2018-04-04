@@ -10,6 +10,18 @@ var storySchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  completed: Boolean,
+  competedDate: Date,
+  due: Date,
+  assignedTo:
+    {
+      id:
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        },
+      username: String
+    },
   owner:
     {
       id:

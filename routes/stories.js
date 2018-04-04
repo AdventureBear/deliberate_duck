@@ -31,6 +31,11 @@ router.post("/", isLoggedIn, function(req,res){
           //console.log(typeof(req.user.id))
           createdStory.owner.id = req.user._id
           createdStory.owner.username = req.user.username
+          createdStory.assignedTo.username= req.user._id
+          createdStory.assignedTo.username = req.user.username
+          createdStory.completed = false
+          var tomorrow = new Date()
+          createdStory.due  = tomorrow.setDate(tomorrow.getDate() + 7)
           createdStory.save()
           foundProject.stories.push(createdStory)
           foundProject.save()
@@ -70,17 +75,19 @@ router.get("/:story_id", function(req,res) {
 
 //EDIT ROUTE
 router.get("/:story_id/edit", function(req, res){
-  Project.findById(req.params.proj_id, function (err, project) {
+  var proj_id = mongoose.Types.ObjectId(req.params.id)
+  console.log(typeof(proj_id))
+  Project.findById(mongoose.Types.ObjectId(req.params.id), function (err, project) {
     if (err) {
       console.log(err)
       res.redirect("/projects/" + req.params.proj_id)
     } else {
-      Story.findById({_id: req.params.id}, function (err, foundStory) {
+      Story.findById({_id: req.params.story_id}, function (err, foundStory) {
         if (err) {
           console.log(err)
         } else {
-          //console.log(foundStory)
-          res.render("./stories/edit", {story: foundStory})
+          console.log(foundStory)
+          res.render("./stories/edit", {story: foundStory, project: project})
         }
       })
     }

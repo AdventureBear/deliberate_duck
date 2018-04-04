@@ -126,7 +126,7 @@ passport.deserializeUser(User.deserializeUser())
 
 # Associating Users &Comments (or any 2 related tables)
 * Associate two models
-* Add users name to object when created
+* Add users name to story when created
 
 # Authorization
 * User can only edit his/her resources
