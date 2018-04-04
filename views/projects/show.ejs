@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="twelve wide column">
-                <div class="ui raised segment ">
+                <td class="ui raised segment ">
                     <h2 class="ui header">
                         Project Details - <%= project.name %>
                     </h2>
@@ -41,26 +41,66 @@
                         </div>
 
 
-
+                    <div class="ui raised segment">
 
                         <h2>User Stories for this project: </h2>
-                        <% project.stories.forEach(function(story){ %>
-                            <div class="ui raised segment">
-                                <div class="ui container">
-                                <div class="ui header">
-                                    <a href="/projects/<%= project._id %>/stories/<%=story._id%>"><%= story.name %></a>
-                                </div>
-                                <div class="content">
-                                    <p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>
-                                </div>
-                                </div>
-                            </div>
-                        <% })%>
+                        <td class="ui raised segment">
+                            <table class="ui striped table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Story</th>
+                                    <th>Owner</th>
+                                    <th>Added</th>
+                                    <th>Completed</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <% project.stories.forEach(function(story){ %>
+                                    <tr>
+                                        <td>
+                                            <a href="/projects/<%= project._id %>/stories/<%=story._id%>"><%= story.name %></a>
+                                        </td>
+                                        <td>
+                                            <p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>
+                                        </td>
+                                        <td><%= story.owner.username %></td>
+                                        <td><%= story.created.toDateString() %></td>
+                                        <td><%= story.completed %></td>
+                                        <td><a href="/projects/<%= project._id %>/stories/<%=story._id%>"><i class="edit icon"></i></a></td>
+                                        <td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%=story._id%>?_method=DELETE"><i class="trash alternate icon"></i></form></a></td>
+                                    </tr>
+                                <% })%>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <!--<h2>User Stories for this project: </h2>-->
+                        <!--<% project.stories.forEach(function(story){ %>-->
+                            <!--<div class="ui raised segment">-->
+                                <!--<div class="ui container">-->
+                                <!--<div class="ui header">-->
+                                    <!--<a href="/projects/<%= project._id %>/stories/<%=story._id%>"><%= story.name %></a>-->
+                                <!--</div>-->
+                                <!--<div class="content">-->
+                                    <!--<p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--<% })%>-->
+                        <!--</div>-->
+
                         <div class="extra">
                             <a href="/projects/<%=project._id%>/stories/new"><button class="ui button big green basic">Add Story</button></a>
                         </div>
-
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>

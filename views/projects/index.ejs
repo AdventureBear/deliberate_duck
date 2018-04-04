@@ -30,15 +30,16 @@
                         </div>
                         <div class="content">
                             <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>
-                            <div class="meta">
-                                <span>Project: <%= project.name %></span> - <%= project.stories.length %> Stories
-                            </div>
+
                             <div class="description">
                                <%= project.description %>
                             </div>
+                            <div class="meta">
+                                <span class="number"><%= project.stories.length %></span> Stories
+                            </div>
                             <div class="extra">
-                                <p> <span>Added by: <%= project.owner.username %></span></p>
-                                <a href="./projects/<%= project._id %>">Additional Details</a>
+                                <p> <span>Added by: <%= project.owner.username %></span> on <%=project.created.toDateString() %></p>
+
                             </div>
                         </div>
                     </div>

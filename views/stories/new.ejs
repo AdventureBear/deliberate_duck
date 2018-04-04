@@ -1,26 +1,56 @@
 <% include ../partials/header.ejs %>
 
 
+<div id="page" class="ui container">
 
-<div class="ui inverted aligned segment ">
-    <div class="ui text container" id="page">
-        <h1 class="ui inverted header">
-           New User Story for <%= project.name %>
-        </h1>
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui header">
+               Stories for: <%= project.name %>
+            </div>
+            <div class="ui  segments">
+                <div class="ui segment inverted  blue">
+                    Story 1
+                </div>
+                <div class="ui segment">
+                    Story 2
+                </div>
+                <div class="ui segment">
+                    Story 3
+                </div>
+            </div>
+        </div>
 
-             <div class="ui inverted form">
+        <div class="twelve wide column">
+
+            <h1 class="ui header">
+               New User Story for <%= project.name %>
+            </h1>
+
+             <div class="ui form">
                 <form action="/projects/<%= project._id %>/stories" method="POST">
+
+                        <div class = "field">
+                            <label>Date Due</label>
+                            <input name="story[due]" placeholder="Date Due" value=""></input>
+                        </div>
+                        <!--<div class = "field">-->
+                            <!--<label>Assigned to</label>-->
+                            <!--<input name="story[assignedTo][username]" placeholder="user" placeholder=""></input>-->
+                        <!--</div>-->
+
+
                     <div class = "field">
                        <label>Story Name</label>
                        <input name="story[name]" placeholder="Story name"></input>
                    </div>
                    <div class = "field">
                      <label>As a</label>
-                     <input name="story[asA]" placeholder="user"></input>
+                     <input name="story[asA]" placeholder="role"></input>
                    </div>
                    <div class = "field inverted">
                       <label>I Want</label>
-                      <input name="story[iWant]" placeholder="to add a story"></input>
+                      <input name="story[iWant]" placeholder="to do this task"></input>
                    </div>
                    <div class="field inverted">
                      <label>So that</label>
@@ -30,9 +60,16 @@
                       <label>Details & Additional Information</label>
                       <textarea name="story[details]"></textarea>
                    </div>
-                     <input class="ui button   blue big" type="submit">
+                    <div class = "field ">
+                        <label>Completed</label>
+                        <input type="checkbox"  name= "story[completed]" class="" value="true">
+                    </div>
+
+                    <input class="ui button   blue big" type="submit">
                 </form>
              </div>
+        </div>
+
     </div>
 </div>
 

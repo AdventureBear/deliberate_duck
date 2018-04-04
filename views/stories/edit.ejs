@@ -1,67 +1,71 @@
 <% include ../partials/header.ejs %>
 
 <div id="page" class="ui container">
-    <div class="ui grid">
-        <div class="four wide column">
-            <div class="ui header">
-                Edit Story: <%= story.name %>
-            </div>
-            <div class="ui  segments ">
-                <div class="ui segment inverted  blue">
-                    <p>Date Due: <%= story.due.toDateString() %></p>
+
+        <div class="ui form">
+            <div class="ui grid">
+                <div class="four wide column">
+                    <div class="ui header">
+                        Edit Story: <%= story.name %>
+                    </div>
                 </div>
-                <div class="ui segment">
-                    <p>Assigned to: <%= story.assignedTo.username %></p>
-                </div>
-                <div class="ui segment">
-                    <div class="ui checkbox">
-                        <input type="checkbox"  name= "admin" class="" value="true"
-                                <% if (story.completed===true) {%>
-                               checked >
-                        <% } else { %>}
-                        >
-                        <% } %>
-                        <label>Completed?</label>
+
+                <div class="twelve wide column">
+                    <div class="ui raised text items container attached">
+                        <div class="ui header">Story: <%= story.name %></div>
+
+                        <form action="./?_method=PUT" method="POST">
+                         <div class="ui form">
+                                 <div class="fieldset">
+                                     <div class = "field">
+                                         <label>Date Due</label>
+                                         <input name="story[due]" placeholder="Story name" value="<%= story.due.toDateString() %>"></input>
+                                     </div>
+                                     <div class = "field">
+                                         <label>Assigned to</label>
+                                         <input name="story[assignedTo][username]" placeholder="user" value="<%=story.assignedTo.username %>"></input>
+                                     </div>
+                                     <div class = "field ">
+                                         <label>Completed</label>
+                                         <input type="checkbox"  name= "story[completed]" class="" value="true"
+                                                 <% if (story.completed===true) {%>
+                                                checked >
+                                         <% } else { %>}
+                                         >
+                                         <% } %>
+                                     </div>
+
+                                    <div class = "field">
+                                       <label>Story Name</label>
+                                       <input name="story[name]" placeholder="Story name" value="<%= story.name %>"></input>
+                                   </div>
+                                   <div class = "field">
+                                     <label>As a</label>
+                                     <input name="story[asA]" placeholder="user" value="<%=story.asA %>"></input>
+                                   </div>
+                                   <div class = "field ">
+                                      <label>I Want</label>
+                                      <input name="story[iWant]" placeholder="to add a story" value="<%=story.iWant %>"></input>
+                                   </div>
+                                   <div class="field ">
+                                     <label>So that</label>
+                                     <textarea name="story[soThat]"><%=story.soThat %></textarea>
+                                   </div>
+                                   <div class="field ">
+                                      <label>Details & Additional Information</label>
+                                      <textarea name="story[details]"><%=story.details %></textarea>
+                                   </div>
+
+                                    <input class="ui button   blue big" type="submit">
+                                    <a href="./"><button class="ui button basic big orange">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="twelve wide column">
-            <div class="ui raised text items container attached">
-                <div class="ui header">Story: <%= story.name %></div>
-                 <div class="ui  form">
-                    <form action="/stories/<%= story._id %>?_method=PUT" method="POST">
-                        <div class="fieldset">
-                            <div class = "field">
-                               <label>Story Name</label>
-                               <input name="name" placeholder="Story name" value="<%= story.name %>"></input>
-                           </div>
-                           <div class = "field">
-                             <label>As a</label>
-                             <input name="asA" placeholder="user" value="<%=story.asA %>"></input>
-                           </div>
-                           <div class = "field ">
-                              <label>I Want</label>
-                              <input name="iWant" placeholder="to add a story" value="<%=story.iWant %>"></input>
-                           </div>
-                           <div class="field ">
-                             <label>So that</label>
-                             <textarea name="soThat"><%=story.soThat %></textarea>
-                           </div>
-                           <div class="field ">
-                              <label>Details & Additional Information</label>
-                              <textarea name="details"><%=story.details %></textarea>
-                           </div>
-
-                            <input class="ui button   blue big" type="submit">
-                            <a href="./"><button class="ui button basic big orange">Cancel</button></a>
-                        </div>
-                    </form>
-                 </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <% include ../partials/footer.ejs %>

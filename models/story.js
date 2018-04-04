@@ -11,7 +11,7 @@ var storySchema = new mongoose.Schema({
     default: Date.now()
   },
   completed: Boolean,
-  competedDate: Date,
+  completedDate: Date,
   due: Date,
   assignedTo:
     {

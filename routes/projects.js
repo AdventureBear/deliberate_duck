@@ -20,13 +20,13 @@ router.get("/", function(req,res) {
 })
 //
 //NEW ROUTE
-router.get("/new", function(req,res){
+router.get("/new", isLoggedIn, function(req,res){
   res.render("./projects/new")
   //console.log(req.body)
 })
 
 // //CREATE ROUTE
-router.post("/", function(req,res){
+router.post("/", isLoggedIn, function(req,res){
   Project.create(req.body, function(err, createdProject){
     if (err) {
       console.log(err)
@@ -53,7 +53,7 @@ router.get("/:id", function(req,res) {
 
 
 // //EDIT ROUTE
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", isLoggedIn, function(req, res){
   Project.findById({_id: req.params.id}, function(err, foundProject){
     if (err) {
       console.log(err)
@@ -65,7 +65,7 @@ router.get("/:id/edit", function(req, res){
 })
 //
 // //UPDATE Route
-router.put("/:id", function(req, res){
+router.put("/:id", isLoggedIn, function(req, res){
   Project.findByIdAndUpdate(req.params.id, req.body, function(err, updatedProject){
     if (err) {
       console.log(err)
@@ -77,7 +77,7 @@ router.put("/:id", function(req, res){
 })
 //
 // //DESTROY Route
-router.delete("/:id", function(req,res){
+router.delete("/:id", isLoggedIn, function(req,res){
   Project.findByIdAndRemove(req.params.id, function(err){
     if (err) {
       console.log(err)
@@ -89,5 +89,11 @@ router.delete("/:id", function(req,res){
   })
 })
 
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next()
+  }
+  res.redirect("/login")
+}
 
 module.exports = router
