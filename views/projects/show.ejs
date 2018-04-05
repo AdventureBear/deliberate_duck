@@ -68,9 +68,17 @@
                                             <p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>
                                         </td>
                                         <td><%= story.owner.username %></td>
-                                        <td><%= story.created.toDateString() %></td>
-                                        <td><%= story.completed %></td>
-                                        <td><a href="/projects/<%= project._id %>/stories/<%=story._id%>"><i class="edit icon"></i></a></td>
+                                        <td>
+                                            <%= story.created.toDateString() %>
+                                        </td>
+                                        <td>
+                                            <% if (story.completed) { %>
+                                            <i class="thumbs up icon"></i>
+                                            <% } else { %>
+                                            <i class="thumbs down icon"></i>
+                                            <% } %>
+                                        </td>
+                                        <td><a href="/projects/<%= project._id %>/stories/<%=story._id%>/edit"><i class="edit icon"></i></a></td>
                                         <td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%=story._id%>?_method=DELETE"><i class="trash alternate icon"></i></form></a></td>
                                     </tr>
                                 <% })%>

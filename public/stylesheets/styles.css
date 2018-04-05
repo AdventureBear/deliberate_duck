@@ -3,7 +3,17 @@ html {
     min-height: 100%;
 }
 
+.icon.up {
+    color: green;
+    font-size: 1.5em;
+    padding-left: 15px;
+}
 
+.icon.down {
+    color: darkred;
+    font-size: 1.5em;
+    padding-left: 15px;
+}
 
 .hidden.menu {
     display: none;
@@ -107,4 +117,3 @@ html {
         font-size: 1.5em;
     }
 }
-]

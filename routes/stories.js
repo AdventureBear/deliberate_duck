@@ -84,7 +84,16 @@ router.get("/:story_id/edit", isLoggedIn,  function(req, res){
         if (err) {
           console.log(err)
         } else {
-          res.render("./stories/edit", {story: foundStory, project: project})
+
+          if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
+            //console.log(foundStory)
+            res.render("./stories/edit", {story: foundStory, project: project})
+          } else {
+            res.send("You don't own this story")
+
+          }
+          
+
         }
       })
     }

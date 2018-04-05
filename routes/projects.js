@@ -27,11 +27,20 @@ router.get("/new", isLoggedIn, function(req,res){
 
 // //CREATE ROUTE
 router.post("/", isLoggedIn, function(req,res){
-  Project.create(req.body, function(err, createdProject){
+  project = {
+    name: req.body.name,
+    description: req.body.description,
+    owner: {
+      id: req.user._id,
+      username: req.user.username
+    }
+  }
+
+  Project.create(project, function(err, createdProject){
     if (err) {
       console.log(err)
     } else {
-      //console.log(req.body)
+
       res.redirect("/projects")
     }
   })
@@ -58,8 +67,15 @@ router.get("/:id/edit", isLoggedIn, function(req, res){
     if (err) {
       console.log(err)
     } else {
-      //console.log(foundStory)
-      res.render("./projects/edit", {project: foundProject})
+      console.log(foundProject)
+      //when DB is cleaned up, this next statement can be simplified to remove !=null part
+      if ((foundProject.owner.id!=null) && (foundProject.owner.id.equals(req.user._id))) {
+        //console.log(foundStory)
+        res.render("./projects/edit", {project: foundProject})
+      } else {
+        res.send("You don't own this project")
+
+      }
     }
   })
 })

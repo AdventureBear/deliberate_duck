@@ -124,11 +124,15 @@ passport.deserializeUser(User.deserializeUser())
 * Include routes in app.js
 * Use Express Router to refactor routes
 
-# Associating Users &Comments (or any 2 related tables)
+# Associating Users & Comments (or any 2 related tables)
 * Associate two models
 * Add users name to story when created
+* Add users name to project when created
 
 # Authorization
-* User can only edit his/her resources
-* User can only delete his/her resources
+* User can only edit his/her projects
+* User can only edit his/her stories
+
+* User can only delete his/her projects
+* User can only delete his/her stories
 * Hide/show edit/delete buttons

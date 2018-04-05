@@ -19,6 +19,7 @@
     "nodemon": "^1.17.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^5.0.0"
+    "passport-local-mongoose": "^5.0.0",
+    "semantic-ui-calendar": "0.0.8"
   }
 }
