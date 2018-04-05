@@ -130,9 +130,7 @@ passport.deserializeUser(User.deserializeUser())
 * Add users name to project when created
 
 # Authorization
-* User can only edit his/her projects
-* User can only edit his/her stories
-
-* User can only delete his/her projects
-* User can only delete his/her stories
+* User can only edit/update/delete his/her projects
+* User can only edit/update/delete his/her stories
+* Add middleware to check ownership
 * Hide/show edit/delete buttons

@@ -32,10 +32,13 @@
                                     <div class="description">
                                         <%= project.description %>
                                     </div>
+
+                                    <% if (currentUser && ((project.owner.id != null) && project.owner.id.equals(currentUser._id))) { %>
                                     <div class="extra">
                                         <a href="./<%= project._id %>/edit"><button class="ui button basic big green">Edit</button></a>
                                         <form id="form_button" method="POST" action="./<%= project._id %>?_method=DELETE"><button class="ui button basic big red">Delete</button></form>
                                     </div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +82,7 @@
                                             <% } %>
                                         </td>
                                         <td><a href="/projects/<%= project._id %>/stories/<%=story._id%>/edit"><i class="edit icon"></i></a></td>
-                                        <td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%=story._id%>?_method=DELETE"><i class="trash alternate icon"></i></form></a></td>
+                                        <td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%= story._id %>?_method=DELETE"><submit><i class="trash alternate icon"></i></submit></form></a></td>
                                     </tr>
                                 <% })%>
                                 </tbody>

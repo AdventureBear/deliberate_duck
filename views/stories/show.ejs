@@ -53,9 +53,9 @@
                 </div>
 
 
-                <a href="./<%= story._id %>/edit"><button class="ui button basic big green">Edit</button></a>
+                <a href="/projects/<%= project_id %>/stories/<%= story._id %>/edit"><button class="ui button basic big green">Edit</button></a>
                 <a href=""><button class="ui button basic big blue">Next</button></a>
-                <form id="form_button" method="POST" action="./<%= story._id %>?_method=DELETE"><button class="ui button basic big red">Delete</button></form>
+                <form id="form_button" method="POST" action="/projects/<%= project_id %>/stories/<%= story._id %>?_method=DELETE"><button class="ui button basic big red">Delete</button></form>
 
             </div>
 

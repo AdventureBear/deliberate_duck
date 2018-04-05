@@ -45,70 +45,55 @@ router.post("/", isLoggedIn, function(req,res){
       })
 
     }
-
   })
-
 })
 
 //SHOW ROUTE
 router.get("/:story_id", function(req,res) {
-  Project.findById(req.params.proj_id, function (err, project){
-    if (err) {
-      console.log(err)
-      res.redirect("/projects/" + req.params.proj_id)
-    } else {
+  // Project.findById(req.params.id, function (err, project){
+  //   if (err) {
+  //     console.log(err)
+  //     res.redirect("/projects/" + req.params.proj_id)
+  //   } else {
       Story.findById(req.params.story_id, function (err, foundStory) {
         if (err) {
           console.log(err)
           res.redirect("/projects/" + req.params.proj_id)
         } else {
           //console.log("Show route, " + foundStory)
-          res.render("./stories/show", {story: foundStory})
+          res.render("./stories/show", {story: foundStory, project_id: req.params.id})
         }
       })
-
-    }
-
-  })
-
-})
+//     }
+//   })
+ })
 
 //EDIT ROUTE
 router.get("/:story_id/edit", isLoggedIn,  function(req, res){
-  Project.findById(mongoose.Types.ObjectId(req.params.id), function (err, project) {
-    if (err) {
-      console.log(err)
-      res.redirect("/projects/" + req.params.proj_id)
-    } else {
-      Story.findById({_id: req.params.story_id}, function (err, foundStory) {
+      Story.findById(req.params.story_id, function (err, foundStory) {
         if (err) {
-          console.log(err)
+          res.redirect("back")
         } else {
-
           if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
             //console.log(foundStory)
-            res.render("./stories/edit", {story: foundStory, project: project})
+            res.render("./stories/edit", {story: foundStory, project_id: req.params.id})
           } else {
             res.send("You don't own this story")
-
           }
-          
-
         }
       })
-    }
-  })
+
 })
 
 //UPDATE Route
 router.put("/:story_id", isLoggedIn, function(req, res){
   console.log("Update route")
-  console.log(req.body)
   Story.findByIdAndUpdate(req.params.story_id, req.body, function(err, updatedStory){
     if (err) {
-      console.log(err)
-      res.redirect("/stories/" + req.params.story_id)
+      console.log("error in story update")
+      res.redirect("back")
     }
+    //Logic to check or change completion date
     if (!req.body.story.completed){
         //box unchecked so make completed false
         updatedStory.completed = false
@@ -122,27 +107,37 @@ router.put("/:story_id", isLoggedIn, function(req, res){
         }
     }
     updatedStory.save()
-    console.log(updatedStory)
+    console.log("Updated Story: " + updatedStory)
     res.redirect("/projects/" + req.params.id)
   })
-
 })
 
 //DESTROY Route
-router.delete("/:id", isLoggedIn, function(req,res){
-  Story.findByIdAndRemove(req.params.id, function(err){
+router.delete("/:story_id", function(req,res){
+  Story.findByIdAndRemove(req.params.story_id, function(err){
     if (err) {
       console.log(err)
-      res.redirect("/stories/" + req.params.id)
+      res.redirect("back")
     } else {
-      res.redirect("/stories")
+      res.redirect("/projects/" + req.params.id )
     }
 
   })
 })
 //===========================
 
+function checkStoryOwnership(req,res, next) {
+  if(req.isAuthenticated()) {
+    if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
+      next ()
+    } else {
+      res.redirect("back")
+    }
+    res.redirect("back")
+  }
 
+
+}
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
     return next()

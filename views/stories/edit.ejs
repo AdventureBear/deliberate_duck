@@ -14,7 +14,7 @@
                     <div class="ui raised text items container attached">
                         <div class="ui header">Story: <%= story.name %></div>
 
-                        <form action="./?_method=PUT" method="POST">
+                        <form action="/projects/<%= project_id %>/stories/<%= story._id %>?_method=PUT" method="POST">
                          <div class="ui form">
                                  <div class="fieldset">
                                      <div class = "field">
