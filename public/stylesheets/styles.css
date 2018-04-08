@@ -42,9 +42,11 @@ html {
 #page {
     padding-top: 4em;
     margin-top: 4em;
-
 }
 
+#flash {
+    margin-top: 4em;
+}
 #form_button {
     display: inline;
 }

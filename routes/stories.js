@@ -6,10 +6,11 @@
 var express = require('express'),
   router = express.Router({mergeParams: true}),
   Project = require('../models/project'),
-  Story = require('../models/story')
+  Story = require('../models/story'),
+  middleware = require('../middleware')
 
 //NEW ROUTE
-router.get("/new", isLoggedIn, function(req,res){
+router.get("/new", middleware.isLoggedIn, function(req,res){
   Project.findById(req.params.id, function(err, foundProject){
     if(err) console.log(err)
     res.render("./stories/new", {project: foundProject})
@@ -18,7 +19,7 @@ router.get("/new", isLoggedIn, function(req,res){
 })
 
 //CREATE ROUTE
-router.post("/", isLoggedIn, function(req,res){
+router.post("/", middleware.isLoggedIn, function(req,res){
   Project.findById(req.params.id, function(err, foundProject){
     if (err) {
       console.log(err)
@@ -40,6 +41,7 @@ router.post("/", isLoggedIn, function(req,res){
           foundProject.stories.push(createdStory)
           foundProject.save()
           //console.log(req.body)
+          req.flash("success", "New Story Added!")
           res.redirect("/projects/:id")
         }
       })
@@ -50,11 +52,6 @@ router.post("/", isLoggedIn, function(req,res){
 
 //SHOW ROUTE
 router.get("/:story_id", function(req,res) {
-  // Project.findById(req.params.id, function (err, project){
-  //   if (err) {
-  //     console.log(err)
-  //     res.redirect("/projects/" + req.params.proj_id)
-  //   } else {
       Story.findById(req.params.story_id, function (err, foundStory) {
         if (err) {
           console.log(err)
@@ -64,12 +61,10 @@ router.get("/:story_id", function(req,res) {
           res.render("./stories/show", {story: foundStory, project_id: req.params.id})
         }
       })
-//     }
-//   })
  })
 
 //EDIT ROUTE
-router.get("/:story_id/edit", isLoggedIn,  function(req, res){
+router.get("/:story_id/edit", middleware.checkStoryOwnership,  function(req, res){
       Story.findById(req.params.story_id, function (err, foundStory) {
         if (err) {
           res.redirect("back")
@@ -86,7 +81,7 @@ router.get("/:story_id/edit", isLoggedIn,  function(req, res){
 })
 
 //UPDATE Route
-router.put("/:story_id", isLoggedIn, function(req, res){
+router.put("/:story_id", middleware.checkStoryOwnership, function(req, res){
   console.log("Update route")
   Story.findByIdAndUpdate(req.params.story_id, req.body, function(err, updatedStory){
     if (err) {
@@ -113,36 +108,28 @@ router.put("/:story_id", isLoggedIn, function(req, res){
 })
 
 //DESTROY Route
-router.delete("/:story_id", function(req,res){
+router.delete("/:story_id", middleware.checkStoryOwnership, function(req,res){
   Story.findByIdAndRemove(req.params.story_id, function(err){
     if (err) {
       console.log(err)
       res.redirect("back")
     } else {
-      res.redirect("/projects/" + req.params.id )
+      ///remove story from project story array
+      Project.update( {_id: req.params.id},
+        {
+          $pull: { stories: req.params.story_id }
+        }, function(err,results) {
+          req.flash("success", "Story Removed!")
+          res.redirect("/projects/" + req.params.id)
+        })
     }
-
-  })
+    })
 })
-//===========================
-
-function checkStoryOwnership(req,res, next) {
-  if(req.isAuthenticated()) {
-    if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
-      next ()
-    } else {
-      res.redirect("back")
-    }
-    res.redirect("back")
-  }
 
 
-}
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next()
-  }
-  res.redirect("/login")
-}
+
+
+
+
 
 module.exports = router

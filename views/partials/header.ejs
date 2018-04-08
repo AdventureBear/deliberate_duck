@@ -44,11 +44,15 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
+<div class="ui container" id="flash">
+    <% if (success && success.length>0 ) { %>
+     <div class="ui success message">
+         <p><%= success %></p>
+     </div>
+    <% } %>
+    <% if (error && error.length>0 ) { %>
+    <div class="ui error message">
+        <p><%= error %></p>
+    </div>
+    <% } %>
+</div>

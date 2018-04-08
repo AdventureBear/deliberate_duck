@@ -134,3 +134,11 @@ passport.deserializeUser(User.deserializeUser())
 * User can only edit/update/delete his/her stories
 * Add middleware to check ownership
 * Hide/show edit/delete buttons
+* Refactor Middleware
+
+# Flash 
+* Install and configure-connect flash
+* Add alerts to header
+* Add helpful messages to each route
+
+

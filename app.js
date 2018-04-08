@@ -6,6 +6,7 @@ var LocalStrategy = require("passport-local"),
     mongoose  = require('mongoose'),
     express   = require('express'),
     seedDB    = require('./seed'),
+    flash     = require('connect-flash'),
     app       = express()
 
 //models
@@ -26,6 +27,7 @@ mongoose.connect("mongodb://localhost/user_stories")
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"))
+app.use(flash())
 app.set("view engine", "ejs")
 seedDB()
 
@@ -46,6 +48,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
   console.log("Current User: " + req.user)
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error")
+  res.locals.success = req.flash("success")
   next();
 });
 
@@ -60,6 +64,7 @@ app.use("/projects/:id/stories", storyRoutes)
 
 app.get("/", function(req,res){
   console.log("Index page")
+
   //console.log(req.body)
   res.render("index")
 })

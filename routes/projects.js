@@ -6,7 +6,10 @@
 
 var express = require('express'),
     router = express.Router({mergeParams: true}),
-    Project = require('../models/project')
+    Project = require('../models/project'),
+    middleware = require('../middleware')
+
+
 
 router.get("/", function(req,res) {
   //console.log(req.user)
@@ -20,12 +23,12 @@ router.get("/", function(req,res) {
 })
 //
 //NEW ROUTE
-router.get("/new", isLoggedIn, function(req,res){
+router.get("/new", middleware.isLoggedIn, function(req,res){
   res.render("./projects/new")
 })
 
 // //CREATE ROUTE
-router.post("/", isLoggedIn, function(req,res){
+router.post("/", middleware.isLoggedIn, function(req,res){
   var project = {
     name: req.body.name,
     description: req.body.description,
@@ -59,7 +62,7 @@ router.get("/:id", function(req,res) {
 
 
 //EDIT ROUTE
-router.get("/:id/edit", checkProjectOwnership,  function(req, res){
+router.get("/:id/edit", middleware.checkProjectOwnership,  function(req, res){
     Project.findById({_id: req.params.id}, function(err, foundProject){
       res.render("./projects/edit", {project: foundProject})
     })
@@ -68,7 +71,7 @@ router.get("/:id/edit", checkProjectOwnership,  function(req, res){
 
 
 //UPDATE Route
-router.put("/:id", checkProjectOwnership, function(req, res){
+router.put("/:id", middleware.checkProjectOwnership, function(req, res){
   Project.findByIdAndUpdate(req.params.id, req.body, function(err, updatedProject){
     res.redirect("/projects")
   })
@@ -76,39 +79,11 @@ router.put("/:id", checkProjectOwnership, function(req, res){
 
 
 //DESTROY Route
-router.delete("/:id", checkProjectOwnership, function(req,res){
+router.delete("/:id", middleware.checkProjectOwnership, function(req,res){
   Project.findByIdAndRemove(req.params.id, function(err){
       res.redirect("/projects")
   })
 })
 
-function checkProjectOwnership(req,res,next){
-  if (req.isAuthenticated()){
-    Project.findById({_id: req.params.id}, function(err, foundProject){
-      if (err) {
-        console.log(err)
-        res.redirect("back")
-      } else {
-        console.log(foundProject)
-        //when DB is cleaned up, this next statement can be simplified to remove !=null part
-        if ((foundProject.owner.id!=null) && (foundProject.owner.id.equals(req.user._id))) {
-          //console.log(foundStory)
-          next()
-        } else {
-          res.redirect("back")
-        }
-      }
-    })
-  } else {
-    res.redirect("back")
-  }
-}
-
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next()
-  }
-  res.redirect("/login")
-}
 
 module.exports = router
