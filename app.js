@@ -66,7 +66,7 @@ app.get("/", function(req,res){
   console.log("Index page")
 
   //console.log(req.body)
-  res.render("index")
+  res.render("landing")
 })
 
 
