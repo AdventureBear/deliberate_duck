@@ -1,5 +1,9 @@
 <% include ../partials/header.ejs %>
 
+<% if (currentUser && currentUser.isAdmin) { %>
+    <h1>You're an admin!</h1>
+<% } %>
+
 <div id="page" class="ui container">
     <div class="ui grid">
         <div class="four wide column">

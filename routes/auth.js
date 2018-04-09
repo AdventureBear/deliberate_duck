@@ -17,6 +17,9 @@ router.get('/register', function(req,res){
 //user signup
 router.post("/register", function(req,res){
   var newUser = new User({username: req.body.username})
+  if (req.body.adminCode === 'secretcode123') {
+    newUser.isAdmin = true
+  }
   User.register(newUser, req.body.password, function(err, user){
     if(err) {
       console.log(err);
@@ -24,7 +27,7 @@ router.post("/register", function(req,res){
       return res.render('register')
     }  else {
       passport.authenticate("local")(req, res, function () {
-        req.flash("success", "Welcome" + user.username)
+        req.flash("success", "Successfully signed up. Welcome" + user.username)
         res.redirect("/projects")
       })
     }

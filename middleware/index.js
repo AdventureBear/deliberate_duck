@@ -13,7 +13,7 @@ middlewareObj.checkProjectOwnership = function(req,res,next){
         } else {
           console.log(foundProject)
           //when DB is cleaned up, this next statement can be simplified to remove !=null part
-          if ((foundProject.owner.id!=null) && (foundProject.owner.id.equals(req.user._id))) {
+          if (((foundProject.owner.id!=null) && (foundProject.owner.id.equals(req.user._id))) || (req.user.isAdmin))  {
             //console.log(foundStory)
             next()
           } else {
@@ -38,7 +38,7 @@ middlewareObj.checkStoryOwnership = function(req,res,next) {
       } else {
         console.log(foundStory)
         //when DB is cleaned up, this next statement can be simplified to remove !=null part
-        if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
+        if (((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) || (req.user.isAdmin)){
           //console.log(foundStory)
           next()
         } else {

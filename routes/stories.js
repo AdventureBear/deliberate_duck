@@ -57,7 +57,7 @@ router.get("/:story_id", function(req,res) {
           console.log(err)
           res.redirect("/projects/" + req.params.proj_id)
         } else {
-          //console.log("Show route, " + foundStory)
+          console.log("Story " + foundStory)
           res.render("./stories/show", {story: foundStory, project_id: req.params.id})
         }
       })
@@ -69,12 +69,7 @@ router.get("/:story_id/edit", middleware.checkStoryOwnership,  function(req, res
         if (err) {
           res.redirect("back")
         } else {
-          if ((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) {
-            //console.log(foundStory)
-            res.render("./stories/edit", {story: foundStory, project_id: req.params.id})
-          } else {
-            res.send("You don't own this story")
-          }
+          res.render("./stories/edit", {story: foundStory, project_id: req.params.id})
         }
       })
 

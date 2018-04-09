@@ -6,11 +6,14 @@ var UserSchema = new mongoose.Schema({
   password: String,
   firstName: String,
   lastName: String,
-  email: String
+  email: String,
+  isAdmin: {type: Boolean, default: false }
 })
 
-UserSchema.plugin(passportLocalMongoose, {
-  selectFields : 'username password firstName lastName email'
-})
+UserSchema.plugin(passportLocalMongoose)
+
+// UserSchema.plugin(passportLocalMongoose, {
+//   selectFields : 'username password firstName lastName email'
+// })
 
 module.exports = mongoose.model("User", UserSchema)
