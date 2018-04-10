@@ -3,9 +3,9 @@
     <div class="ui main text container">
 
         <h1>Sign Up form</h1>
-
+        <div class="ui container">
         <form class="ui form" method="post" action="/register">
-            <div class="fields">
+
                 <div class="field">
                     <label>Username</label>
                     <input type="text" name="username" placeholder="username">
@@ -15,13 +15,6 @@
                     <label>Password</label>
                     <input type="text" name="password" placeholder="password">
                 </div>
-                <div class="field">
-                    <label>Admin Code</label>
-                    <input type="text" name="adminCode" placeholder="Admin Code">
-                </div>
-
-            </div>
-
 
                 <div class="field">
                     <label>First Name</label>
@@ -33,17 +26,25 @@
                     <input type="text" name="lastName" placeholder="Last Name">
                 </div>
 
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="email">
+                </div>
 
-            <div class="field">
-                <label>Email</label>
-                <input type="text" name="email" placeholder="email">
-            </div>
+                <div class="field">
+                    <label>Avatar</label>
+                    <input type="text" name="avatar" placeholder="profile image url">
+                </div>
 
+                <div class="field">
+                    <label>Admin Code</label>
+                    <input type="text" name="adminCode" placeholder="Admin Code">
+                </div>
 
             <button class="ui button big basic blue">Sign Up</button>
 
         </form>
-
+        </div>
     </div>
 </div>
 <% include ./partials/footer %>

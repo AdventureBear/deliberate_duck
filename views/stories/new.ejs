@@ -23,27 +23,37 @@
 
         <div class="twelve wide column">
 
-            <h1 class="ui header">
-               New User Story for <%= project.name %>
-            </h1>
+            <!--<h1 class="ui header">-->
+
+            <!--</h1>-->
 
              <div class="ui form">
                 <form action="/projects/<%= project._id %>/stories" method="POST">
+                    <h3 class="ui dividing header">New User Story for <%= project.name %></h3>
 
-                        <div class = "field">
-                            <label>Date Due</label>
-                            <input name="story[due]" placeholder="Date Due" value=""></input>
+
+
+                    <div class="field">
+                        <p>Story Information</p>
+                        <div class = "fields">
+                            <div class="twelve wide field">
+                                <label>Story Name</label>
+                                <input name="story[name]" placeholder="Story name"></input>
+                            </div>
+
+                            <div class="four wide field">
+                                <label>Date Due</label>
+                                <input type="date" name="story[due]" placeholder="Date Due" value=""></input>
+                            </div>
                         </div>
+                    </div>
                         <!--<div class = "field">-->
                             <!--<label>Assigned to</label>-->
                             <!--<input name="story[assignedTo][username]" placeholder="user" placeholder=""></input>-->
                         <!--</div>-->
 
 
-                    <div class = "field">
-                       <label>Story Name</label>
-                       <input name="story[name]" placeholder="Story name"></input>
-                   </div>
+
                    <div class = "field">
                      <label>As a</label>
                      <input name="story[asA]" placeholder="role"></input>

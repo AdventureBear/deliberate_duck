@@ -141,4 +141,10 @@ passport.deserializeUser(User.deserializeUser())
 * Add alerts to header
 * Add helpful messages to each route
 
+# UI improvements
+* add admin feature
+* add profile page
+* add password reset
+
+
 

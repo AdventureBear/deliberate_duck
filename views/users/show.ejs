@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+
+<div id="page" class="ui container">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui  segments">
+                <div class="ui segment ">
+                    Thing 1
+                </div>
+                <div class="ui inverted blue segment">
+                    Thing 2
+                </div>
+                <div class="ui segment">
+                    Thing 3
+                </div>
+            </div>
+        </div>
+
+        <div class="twelve wide column">
+            <div class="ui raised segment ">
+                <h2 class="ui header">
+                    Profile Page: <%= user.username %>
+                </h2>
+
+
+                <div class="ui items">
+                    <div class="item">
+                        <div class="image">
+                            <img src="<%= user.avatar %>">
+                        </div>
+                        <div class="content">
+                            <h3><%= user.firstName %> <%=user.lastName %></h3>
+
+                            <% if (user.isAdmin) { %>
+                            <div class="meta">
+                                <h3>Role: Site Admin</h3>
+                            </div>
+                            <% } %>
+
+                            <div class="description">
+                                <h3><%= user.username %>'s Projects</h3>
+                                <p>Total: <%= projects.length %></p>
+                                <ul>
+                                    <% projects.forEach(function(project){ %>
+                                    <li>
+                                        <a href="/projects/<%=project._id%>"><%= project.name %></a>
+                                    </li>
+                                    <%  }) %>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <a href="mailto:<%=user.email%>">Email <%=user.firstName%></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

@@ -26,7 +26,7 @@
                     <% users.forEach(function(user){ %>
                     <div class="item">
                         <div class="image">
-                            <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                            <img src="<%=user.avatar%>">
                         </div>
                         <div class="content">
                             <a class="header" href="./users/<%= user._id %>"><%= user.username %></a>
