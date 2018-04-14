@@ -1,150 +1,112 @@
-#RESTful Routing
+# Deliberate Duck
+> Organizing Chaos for Random Thinkers
 
-##Site Index
-* Setup the Site App
-* Create the main component model
-* Add INDEX route and template
+Deliberate Duck organizes the pieces of your next project, helping solo developers, small teams of coders,
+and clients share and communicate main features. 
 
-##Basic Layout
-* Add Header and Footer Partials
-* Include Semantic UI
-* Add Simple Nav
+Everyone can create an account, share access to projects, create 
+user stories with clarity and efficiency.  The backlog of stories can be
+assigned to one person or a team, completion dates noted, progress tracked 
+right through to final completion and delivery of a project. 
 
-##Putting the C in CRUD
-* Add NEW route
-* Add NEW template
-* Add CREATE route
-* Add CREATE template
+When a desired feature becomes complex, Deliberate Duck allows you to break it down
+into smaller parts so that each piece is a bit sized piece of coding work 
+that can be completed by one developer in a discrete doable chuck of time. (We believe 
+4 Pomodoro's is a reasonable chunk of time). 
 
-##SHOWtime
-* Add Show route
-* Add Show template
-* Add links to show page
-* Style show template
+With deliberate duck, you'll finish your projects faster, with less confusion and distraction
+ensuring a functional and bug free app! 
 
-##Edit/Update
-* Add Edit Route
-* Add Edit Form
-* Add Update Route
-* Add Update Form
-* Add Method-Override
+Deliberate duck is ideal for bootcamp students, self-taught coders and online learners to 
+help track all of your project requirements. 
 
-##DESTROYYYYYY
-* Add Destroy Route
-* Add Edit and Destroy Links
-
-##Final Updates
-* Sanitize blog body
-* Style Index
-* Update REST Table
+## Features
+* Create projects and begin tracking and adding user stories
+* Request access to public projects
+* Invite other team members to projects you own
+* Import a list of user stories in a standard format
+* Visually track progress to completion
+* Built in AI helps to identify backlog bloat and feature creep 
 
 
-#Refactor Mongoose Code
-* Create a models directory
-* Use module.exports
-* Require everything correctly!
+## Installing / Getting started
 
-#Add Seeds File
-* Add a seeds.js file
-* Run the seeds file every time the server starts
+### Setup your Mongo Database
+You can use mLab or locally hosted mongo setup.  Either option will require 
+a connection URL string that looks like one of these: 
 
-#Add the Comment model!
-* Make our errors go away!
-* Display comments on campground show page
+    mongodb://username:password@df01326.mlab.com:1512/ducks
+    mongodb://localhost/user_stories
+    
+Use the appropriate URL in your .env file 
 
-#Comment New/Create
-* Discuss nested routes
-* Add the comment new and create routes
-* Add the new comment form
+### Customize your .env file
+Environmental variables are used to hide sensitive information from outside eyes
+and allow the application to function between users, or let you quickly update your 
+port or database for your application. Currently there are two environmental varaibles to set up:
+ 
+Follow these steps to setup your .env file
+   - rename sample.env to .env
+   - change PORT to appropriate Port value
+   - change Mongo URL to appropriate Mongo connection
+      
 
-#Style Show Page
-* Add sidebar to show page
-* Display comments nicely
-
-
-# RESTFUL ROUTES
-```
-name      url      verb    desc.
-===============================================
-INDEX   /dogs      GET   Display a list of all dogs
-NEW     /dogs/new  GET   Displays form to make a new dog
-CREATE  /dogs      POST  Add new dog to DB
-SHOW    /dogs/:id  GET   Shows info about one dog
-
-INDEX   /projects
-NEW     /projects/new
-CREATE  /projects
-SHOW    /projects/:id
-
-NEW     projects/:id/stories/new    GET
-CREATE  projects/:id/stories      POST
-```
-
-#Auth Code Tools Parts 1/2
-* Install needed packages
-  * Passport
-  * Passport Local 
-  * Passport Local Mongoose
-  * Express-Session
-
-#Auth Code Along pt 3
-* Create User Model
-* Configure Passport
-```$xslt
-//setup passport
-app.use(require("express-session")({
-  secret: "Fig is the best puppy ever",
-  resave: false,
-  saveUninitialized: false
-}))
-
-app.use(passport.initialize())
-app.use(passport.session())
-
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
-```
-
-# Part 4
-* Add Register Routes
-* Add Register Form
-* Add Login Routes
-* Add Login Form
-
-# Part 5
-* Add Logout Route
-* Add middleware isLoggedIn
-
-# Part 6
-* Add links to nav/bar
-* Show/Hide navbar links
-
-# Refactor Routes
-* Split routes into different files in routes dir
-* Include routes in app.js
-* Use Express Router to refactor routes
-
-# Associating Users & Comments (or any 2 related tables)
-* Associate two models
-* Add users name to story when created
-* Add users name to project when created
-
-# Authorization
-* User can only edit/update/delete his/her projects
-* User can only edit/update/delete his/her stories
-* Add middleware to check ownership
-* Hide/show edit/delete buttons
-* Refactor Middleware
-
-# Flash 
-* Install and configure-connect flash
-* Add alerts to header
-* Add helpful messages to each route
-
-# UI improvements
-* add admin feature
-* add profile page
-* add password reset
+### Install nodemodules with npm and start app.js
+  ```
+  npm install 
+  nodemon app.js
+  ```
+This will install all the node_modules required for your app to run, and start the Deliberate Duck server on the port you specified in your .env file.
 
 
 
+## Seed File Setup
+
+The seeds.js file will run when you start the server using ```nodemon app.js``` or ```node app.js```. 
+Use caution as this will overwrite any previous databases using the name in your Mongo URL. 
+
+If you are not in production and assisting with open source development of Deliberate Duck (thank you), you 
+can leave the seedsDB() fuction in the app.js file. 
+
+However if you are ready to begin production use, you MUST comment out the seedDB() command in the app.js file 
+during the app setup as show here: 
+
+    app.use(bodyParser.urlencoded({extended: true}))
+    app.use(express.static(__dirname + "/public"))
+    app.use(methodOverride("_method"))
+    app.use(flash())
+    app.set("view engine", "ejs")
+    //seedDB()      <-- comment or remove this line for production use
+    
+
+## Contributing
+
+Deliberate Duck is a fun, useful application ideal for beginning developers to both use AND
+contribute to! 
+
+If you'd like to contribute, please fork the repository and use a feature
+branch. Pull requests are warmly welcome.
+
+### Style Guide: 
+I'm pretty new to this, currently it is written in ES5, but I'm open to ES6 and will 
+begin refactoring it ASAP. 
+
+No semicolons (;) (Deliberate Ducks feel they're just visual clutter)
+
+
+## Links
+
+- Project homepage: https://your.github.com/awesome-project/
+- Repository: https://github.com/your/awesome-project/
+- Issue tracker: https://github.com/your/awesome-project/issues
+  - In case of sensitive bugs like security vulnerabilities, please contact
+    my@email.com directly instead of using issue tracker. We value your effort
+    to improve the security and privacy of this project!
+- Related projects:
+  - Your other project: https://github.com/your/other-project/
+  - Someone else's project: https://github.com/someones/awesome-project/
+
+
+## Licensing
+
+"The code in this project is licensed under MIT license."
