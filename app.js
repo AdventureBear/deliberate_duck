@@ -77,6 +77,7 @@ app.get("/", function(req,res){
 
 
 //SERVER
-app.listen(3001, function(req, res){
-  console.log("User stories server is running")
+var port = process.env.PORT
+app.listen(port, function(req, res){
+  console.log("User stories server is running on port ", port)
 })
