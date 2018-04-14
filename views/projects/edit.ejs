@@ -17,12 +17,12 @@
                 <form action="/projects/<%= project._id %>?_method=PUT" method="POST">
                     <div class = "field">
                         <label>Project Name</label>
-                        <input name="name" placeholder="Project name" value="<%= project.name %>"></input>
+                        <input name="project[name]" placeholder="Project name" value="<%= project.name %>"></input>
                     </div>
 
                     <div class="field ">
                         <label>Details & Additional Information</label>
-                        <textarea name="description"><%=project.description %></textarea>
+                        <textarea name="project[description]"><%=project.description %></textarea>
                     </div>
                     <input class="ui button   blue big" type="submit">
                 </form>

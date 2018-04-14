@@ -57,7 +57,7 @@ router.get("/:story_id", function(req,res) {
           console.log(err)
           res.redirect("/projects/" + req.params.proj_id)
         } else {
-          console.log("Story " + foundStory)
+          console.log("Found Story")
           res.render("./stories/show", {story: foundStory, project_id: req.params.id})
         }
       })
@@ -77,10 +77,19 @@ router.get("/:story_id/edit", middleware.checkStoryOwnership,  function(req, res
 
 //UPDATE Route
 router.put("/:story_id", middleware.checkStoryOwnership, function(req, res){
+  // var newStory = {
+  //   name:       req.body.story.name,
+  //   asA:        req.body.story.asA,
+  //   iWant:      req.body.story.iWant,
+  //   soThat:     req.body.story.soThat,
+  //   details:    req.body.story.details,
+  //   completed:  req.body.story.completedDate,
+  // }
   console.log("Update route")
-  Story.findByIdAndUpdate(req.params.story_id, req.body, function(err, updatedStory){
+  Story.findByIdAndUpdate(req.params.story_id, req.body.story, function(err, updatedStory){
     if (err) {
-      console.log("error in story update")
+      console.log(err)
+      req.flash("error", "Could not update story")
       res.redirect("back")
     }
     //Logic to check or change completion date
@@ -97,7 +106,8 @@ router.put("/:story_id", middleware.checkStoryOwnership, function(req, res){
         }
     }
     updatedStory.save()
-    console.log("Updated Story: " + updatedStory)
+    //console.log("Updated Story: " + updatedStory)
+    console.log("Body", req.body)
     res.redirect("/projects/" + req.params.id)
   })
 })

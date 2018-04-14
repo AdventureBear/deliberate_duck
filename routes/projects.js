@@ -72,7 +72,7 @@ router.get("/:id/edit", middleware.checkProjectOwnership,  function(req, res){
 
 //UPDATE Route
 router.put("/:id", middleware.checkProjectOwnership, function(req, res){
-  Project.findByIdAndUpdate(req.params.id, req.body, function(err, updatedProject){
+  Project.findByIdAndUpdate(req.params.id, req.body.project, function(err, updatedProject){
     res.redirect("/projects")
   })
 })
