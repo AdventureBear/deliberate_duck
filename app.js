@@ -7,6 +7,7 @@ var LocalStrategy = require("passport-local"),
     express   = require('express'),
     seedDB    = require('./seed'),
     flash     = require('connect-flash'),
+    dotenv    = require('dotenv'),
     app       = express()
 
 //models
@@ -23,7 +24,11 @@ var   userRoutes = require('./routes/users'),
 
 
 //Connect to app
-mongoose.connect("mongodb://localhost/user_stories")
+dotenv.config()
+var mongo_url = process.env.MONGO_URI
+//mongoose.connect("mongodb://localhost/user_stories")
+mongoose.connect(mongo_url)
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"))
