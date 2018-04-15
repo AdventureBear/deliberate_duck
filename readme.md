@@ -36,7 +36,7 @@ You can use mLab or locally hosted mongo setup.  Either option will require
 a connection URL string that looks like one of these: 
 
     mongodb://username:password@df01326.mlab.com:1512/ducks
-    mongodb://localhost/user_stories
+    mongodb://localhost/ducks
     
 Use the appropriate URL in your .env file 
 
@@ -91,7 +91,7 @@ branch. Pull requests are warmly welcome.
 I'm pretty new to this, currently it is written in ES5, but I'm open to ES6 and will 
 begin refactoring it ASAP. 
 
-No semicolons (;) (Deliberate Ducks feel they're just visual clutter)
+Deliberate Ducks feel that semi-colons are visual clutter, please don't use them
 
 
 ## Links
