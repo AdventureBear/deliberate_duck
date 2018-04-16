@@ -73,8 +73,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Story</th>
-                                    <th>Owner</th>
-                                    <th>Added</th>
                                     <th>Due</th>
                                     <th>Completed</th>
                                     <th>Edit</th>
@@ -89,10 +87,6 @@
                                         </td>
                                         <td>
                                             <p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>
-                                        </td>
-                                        <td><%= story.owner.username %></td>
-                                        <td>
-                                            <%= moment(story.created).fromNow()  %>
                                         </td>
                                         <td>
                                             <%= moment(story.due).fromNow()  %>
