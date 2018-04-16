@@ -26,7 +26,8 @@ var   userRoutes = require('./routes/users'),
 
 //Connect to app
 dotenv.config()
-var mongo_url = process.env.MONGO_URI
+//var mongo_url = process.env.MONGO_URI
+var mongo_url = process.env.MONGOLAB_URI
 //mongoose.connect("mongodb://localhost/user_stories")
 mongoose.connect(mongo_url)
 
