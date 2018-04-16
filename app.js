@@ -8,6 +8,7 @@ var LocalStrategy = require("passport-local"),
     seedDB    = require('./seed'),
     flash     = require('connect-flash'),
     dotenv    = require('dotenv'),
+    morgan = require('morgan'),
     app       = express()
 
 //models
@@ -32,6 +33,7 @@ mongoose.connect(mongo_url)
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"))
+app.use(morgan('dev'))
 app.use(flash())
 app.set("view engine", "ejs")
 seedDB()
