@@ -42,7 +42,7 @@
                                     <% } %>
                                     </div>
                                     <div class="meta">
-                                        Created: <%= project.created.toDateString() %>
+                                        Created: <%= moment(project.created).fromNow()  %>
                                     </div>
                                     <div class="meta">
                                         Due: <%= project.dateDue.toDateString() %>
@@ -75,9 +75,9 @@
                                     <th>Story</th>
                                     <th>Owner</th>
                                     <th>Added</th>
+                                    <th>Due</th>
                                     <th>Completed</th>
                                     <th>Edit</th>
-                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -92,7 +92,10 @@
                                         </td>
                                         <td><%= story.owner.username %></td>
                                         <td>
-                                            <%= story.created.toDateString() %>
+                                            <%= moment(story.created).fromNow()  %>
+                                        </td>
+                                        <td>
+                                            <%= moment(story.due).fromNow()  %>
                                         </td>
                                         <td>
                                             <% if (story.completed) { %>
@@ -102,7 +105,7 @@
                                             <% } %>
                                         </td>
                                         <td><a href="/projects/<%= project._id %>/stories/<%=story._id%>/edit"><i class="edit icon"></i></a></td>
-                                        <td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%= story._id %>?_method=DELETE"><submit><i class="trash alternate icon"></i></submit></form></a></td>
+                                        <!--<td><a href=""><form method="post" action="/projects/<%= project._id %>/stories/<%= story._id %>?_method=DELETE"><submit><i class="trash alternate icon"></i></submit></form></a></td>-->
                                     </tr>
                                 <% })%>
                                 </tbody>

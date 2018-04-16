@@ -44,7 +44,7 @@
                                 <span class="number"><%= project.stories.length %></span> Stories
                             </div>
                             <div class="extra">
-                                <p> <span>Added by: <%= project.owner.username %></span> on <%=project.created.toDateString() %></p>
+                                <p> <span>Added by: <%= project.owner.username %></span> on <%=moment(project.created).fromNow() %></p>
 
                             </div>
                         </div>

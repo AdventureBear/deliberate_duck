@@ -26,10 +26,10 @@ var   userRoutes = require('./routes/users'),
 
 //Connect to app
 dotenv.config()
-//var mongo_url = process.env.MONGO_URI
-var mongo_url = process.env.MONGOLAB_URI
+var database_url = process.env.MONGO_URI
+//var mongo_url = process.env.MONGOLAB_URI
 //mongoose.connect("mongodb://localhost/user_stories")
-mongoose.connect(mongo_url)
+mongoose.connect(database_url)
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + "/public"))
@@ -37,6 +37,8 @@ app.use(methodOverride("_method"))
 app.use(morgan('dev'))
 app.use(flash())
 app.set("view engine", "ejs")
+app.locals.moment = require('moment');
+
 seedDB()
 
 //setup passport
