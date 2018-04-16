@@ -24,11 +24,29 @@
                         <div class="ui items">
                             <div class="item">
                                 <div class="image">
+                                    <% if (project.avatar) { %>
+                                    <img src="<%= project.avatar %>">
+                                    <% } else { %>
                                     <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                                    <% } %>
                                 </div>
                                 <div class="content">
                                     <a class="header" href="">Added by: <%= project.owner.username%> </a>
 
+                                    <div class="meta">
+                                    <p>Visibility:
+                                    <% if (project.isPublic) { %>
+                                        Public  </p>
+                                    <% } else { %>
+                                        Private </p>
+                                    <% } %>
+                                    </div>
+                                    <div class="meta">
+                                        Created: <%= project.created.toDateString() %>
+                                    </div>
+                                    <div class="meta">
+                                        Due: <%= project.dateDue.toDateString() %>
+                                    </div>
                                     <div class="description">
                                         <%= project.description %>
                                     </div>
@@ -45,9 +63,11 @@
 
 
                     <div class="ui raised segment">
-
+                        <% if (project.stories.length===0) { %>
+                        <h3 class="ui header">Add the first user story for this project!</h3>
+                        <% } else { %>
                         <h2>User Stories for this project: </h2>
-                        <td class="ui raised segment">
+                        <div class="ui raised segment">
                             <table class="ui striped table">
                                 <thead>
                                 <tr>
@@ -89,21 +109,7 @@
                             </table>
                         </div>
 
-
-                        <!--<h2>User Stories for this project: </h2>-->
-                        <!--<% project.stories.forEach(function(story){ %>-->
-                            <!--<div class="ui raised segment">-->
-                                <!--<div class="ui container">-->
-                                <!--<div class="ui header">-->
-                                    <!--<a href="/projects/<%= project._id %>/stories/<%=story._id%>"><%= story.name %></a>-->
-                                <!--</div>-->
-                                <!--<div class="content">-->
-                                    <!--<p>As a <%= story.asA%> I want <%= story.iWant %> so that <%= story.soThat %>.</p>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--<% })%>-->
-                        <!--</div>-->
+                        <% } %>
 
                         <div class="extra">
                             <a href="/projects/<%=project._id%>/stories/new"><button class="ui button big green basic">Add Story</button></a>

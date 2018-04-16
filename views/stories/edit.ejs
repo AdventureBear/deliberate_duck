@@ -16,29 +16,35 @@
 
                         <form action="/projects/<%= project_id %>/stories/<%= story._id %>?_method=PUT" method="POST">
                          <div class="ui form">
-                                 <div class="fieldset">
+                                 <div class="fields">
+                                     <div class = "field">
+                                         <label>Story Name</label>
+                                         <input name="story[name]" placeholder="Story name" value="<%= story.name %>">
+                                     </div>
+
+
                                      <div class = "field">
                                          <label>Date Due</label>
-                                         <input name="story[due]" placeholder="Story name" value="<%= story.due.toDateString() %>"></input>
+                                         <input type="date" name="story[due]"  value="<%= story.due.toISOString().slice(0,10) %>">
                                      </div>
-                                     <div class = "field">
-                                         <label>Assigned to</label>
-                                         <input name="story[assignedTo][username]" placeholder="user" value="<%=story.assignedTo.username %>"></input>
-                                     </div>
-                                     <div class = "field ">
-                                         <label>Completed</label>
+                                     <!--<div class = "field">-->
+                                         <!--<label>Assigned to</label>-->
+                                         <!--<input name="story[assignedTo][username]" placeholder="user" value="<%=story.assignedTo.username %>"></input>-->
+                                     <!--</div>-->
+                                 </div>
+
+                                     <div class = "inline field ">
+
                                          <input type="checkbox"  name= "story[completed]" class="" value="true"
                                                  <% if (story.completed===true) {%>
                                                 checked >
                                          <% } else { %>}
                                          >
                                          <% } %>
+                                         <label>Completed</label>
                                      </div>
 
-                                    <div class = "field">
-                                       <label>Story Name</label>
-                                       <input name="story[name]" placeholder="Story name" value="<%= story.name %>"></input>
-                                   </div>
+
                                    <div class = "field">
                                      <label>As a</label>
                                      <input name="story[asA]" placeholder="user" value="<%=story.asA %>"></input>
@@ -58,7 +64,7 @@
 
                                     <input class="ui button   blue big" type="submit">
                                     <a href="./"><button class="ui button basic big orange">Cancel</button></a>
-                                </div>
+
                             </div>
                         </form>
                     </div>

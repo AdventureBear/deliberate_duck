@@ -7,7 +7,9 @@
 var express = require('express'),
     router = express.Router({mergeParams: true}),
     Project = require('../models/project'),
-    middleware = require('../middleware')
+    middleware = require('../middleware'),
+    moment = require('moment'),
+    today = moment().format('YYYY-MM-DD')
 
 
 
@@ -17,6 +19,7 @@ router.get("/", function(req,res) {
     if (err) {
       console.log(err)
     } else {
+      //some testing dates:
       res.render("./projects/index", {projects: projects})
     }
   })
@@ -24,24 +27,24 @@ router.get("/", function(req,res) {
 //
 //NEW ROUTE
 router.get("/new", middleware.isLoggedIn, function(req,res){
-  res.render("./projects/new")
+  res.render("./projects/new", {today: today})
 })
 
 // //CREATE ROUTE
 router.post("/", middleware.isLoggedIn, function(req,res){
-  var project = {
-    name: req.body.name,
-    description: req.body.description,
-    owner: {
-      id: req.user._id,
-      username: req.user.username
-    }
+  var project = req.body.project
+  console.log(req.body.project)
+
+  project.owner = {
+    id: req.user._id,
+    username: req.user.username
   }
 
   Project.create(project, function(err, createdProject){
     if (err) {
       console.log(err)
     } else {
+      console.log("new project created: ", createdProject)
       res.redirect("/projects")
     }
   })
@@ -63,7 +66,7 @@ router.get("/:id", function(req,res) {
 
 //EDIT ROUTE
 router.get("/:id/edit", middleware.checkProjectOwnership,  function(req, res){
-    Project.findById({_id: req.params.id}, function(err, foundProject){
+    Project.findById(req.params.id, function(err, foundProject){
       res.render("./projects/edit", {project: foundProject})
     })
 })

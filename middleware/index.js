@@ -11,7 +11,7 @@ middlewareObj.checkProjectOwnership = function(req,res,next){
           req.flash("error", "Project not found!")
           res.redirect("back")
         } else {
-          console.log(foundProject)
+          //console.log(foundProject)
           //when DB is cleaned up, this next statement can be simplified to remove !=null part
           if (((foundProject.owner.id!=null) && (foundProject.owner.id.equals(req.user._id))) || (req.user.isAdmin))  {
             //console.log(foundStory)
@@ -36,7 +36,7 @@ middlewareObj.checkStoryOwnership = function(req,res,next) {
         console.log(err)
         res.redirect("back")
       } else {
-        console.log(foundStory)
+        //console.log(foundStory)
         //when DB is cleaned up, this next statement can be simplified to remove !=null part
         if (((foundStory.owner.id!=null) && (foundStory.owner.id.equals(req.user._id))) || (req.user.isAdmin)){
           //console.log(foundStory)

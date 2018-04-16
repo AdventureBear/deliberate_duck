@@ -28,11 +28,13 @@ var Users = [{
 
 var Projects = [{
   name: "TriCoach Tools",
+  avatarUrl: "https://st2.depositphotos.com/1010915/10790/v/950/depositphotos_107909866-stock-illustration-triathlon-icons-background.jpg",
+  isPublic: true,
+  dateDue: today.setDate(today.getDate() + 31),
   description: "Helping Coaches track athletes, race schedules and season planning.",
 },{
   name: "Climbing Gym Tools",
   description: "Helping Gym owners and clients enjoy the sport of indoor climbing",
-  owner: { username: "Michael" }
 }]
 
 var Stories = [

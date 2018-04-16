@@ -26,7 +26,13 @@
                     <% projects.forEach(function(project){ %>
                     <div class="item">
                         <div class="image">
+
+                            <% if (project.avatar) { %>
+                            <img src="<%= project.avatar %>">
+                            <% } else { %>
                             <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                            <% } %>
+
                         </div>
                         <div class="content">
                             <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>

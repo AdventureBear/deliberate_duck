@@ -23,15 +23,9 @@
 
         <div class="twelve wide column">
 
-            <!--<h1 class="ui header">-->
-
-            <!--</h1>-->
-
              <div class="ui form">
                 <form action="/projects/<%= project._id %>/stories" method="POST">
                     <h3 class="ui dividing header">New User Story for <%= project.name %></h3>
-
-
 
                     <div class="field">
                         <p>Story Information</p>
@@ -43,7 +37,7 @@
 
                             <div class="four wide field">
                                 <label>Date Due</label>
-                                <input type="date" name="story[due]" placeholder="Date Due" value=""></input>
+                                <input type="date" name="story[due]" placeholder="Date Due" value="<%= today %>"></input>
                             </div>
                         </div>
                     </div>
@@ -70,12 +64,12 @@
                       <label>Details & Additional Information</label>
                       <textarea name="story[details]"></textarea>
                    </div>
-                    <div class = "field ">
-                        <label>Completed</label>
+                    <div class = "field">
+                        <label>Completed?</label>
                         <input type="checkbox"  name= "story[completed]" class="" value="true">
                     </div>
 
-                    <input class="ui button   blue big" type="submit">
+                    <input class="ui button blue big" type="submit">
                 </form>
              </div>
         </div>

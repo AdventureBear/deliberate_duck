@@ -1,35 +1,77 @@
 <% include ../partials/header.ejs %>
 
-<div id="page" class="ui segment">
-    <div class="ui container">
-        <div class="ui raised text items container attached">
-            <h2 class="ui header">
-                Project Details
-            </h2>
+<div id="page" class="ui container">
 
-            <a href="./"><button class="ui button basic big blue">Back</button></a>
-
-            <h1 class="ui  header">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui header">
                 New Project
-            </h1>
+            </div>
+            <div class="ui  segments">
+                <div class="ui segment inverted  blue">
+                    Story 1
+                </div>
+                <div class="ui segment">
+                    Story 2
+                </div>
+                <div class="ui segment">
+                    Story 3
+                </div>
+            </div>
+        </div>
 
-            <div class="ui  form">
+        <div class="twelve wide column">
+
+
+            <div class="ui form">
                 <form action="/projects" method="POST">
-                    <div class = "field">
-                        <label>Project Name</label>
-                        <input name="name" placeholder="Project name"></input>
+                    <h3 class="ui  header">
+                        New Project
+                    </h3>
+
+                    <div class="fields">
+                        <div class="twelve wide field">
+                            <div class = "field">
+                                <label>Project Name</label>
+                                <input name="project[name]" placeholder="Project name"></input>
+                            </div>
+                        </div>
+
+                        <div class="four wide field">
+                            <div class = "field">
+                                <label>Date Due</label>
+                                <input name="project[dateDue]" type="Date" value="<%= today %>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="field ">
-                        <label>Project Description</label>
-                        <textarea name="description"></textarea>
+                    <div class="field">
+                        <label>Project Avatar URL</label>
+                        <input name="project[avatar]">
                     </div>
-                    <input class="ui button   blue big" type="submit">
+
+                    <div class="field">
+                        <label>Project Description</label>
+                        <textarea name="project[description]"></textarea>
+                    </div>
+
+                    <div class="inline field">
+                        <input type="checkbox" name="project[isPublic]" class="" value="true">
+                        <label>Public?</label>
+                    </div>
+
+
+                    <div class="inline field">
+                        <input type="checkbox" class="hidden" name="project[isComplete]" value="true">
+                        <label>Completed?</label>
+                    </div>
+
+                    <input class="ui button blue big" type="submit">
                 </form>
             </div>
 
         </div>
-    </div>
+
 </div>
 
 <% include ../partials/footer.ejs %>

@@ -48,8 +48,7 @@ router.post("/login", passport.authenticate("local",
     successRedirect: "/projects",
     failureRedirect: "/login"
   }), function(req,res) {
-  // console.log("Logged in" +currentUser)
-  // res.redirect("/projects")
+
 })
 
 

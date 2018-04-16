@@ -7,13 +7,15 @@ var express = require('express'),
   router = express.Router({mergeParams: true}),
   Project = require('../models/project'),
   Story = require('../models/story'),
-  middleware = require('../middleware')
+  middleware = require('../middleware'),
+  moment = require('moment'),
+  today = moment().format('YYYY-MM-DD')
 
 //NEW ROUTE
 router.get("/new", middleware.isLoggedIn, function(req,res){
   Project.findById(req.params.id, function(err, foundProject){
     if(err) console.log(err)
-    res.render("./stories/new", {project: foundProject})
+    res.render("./stories/new", {project: foundProject, today: today})
   })
 
 })
@@ -30,13 +32,25 @@ router.post("/", middleware.isLoggedIn, function(req,res){
           console.log(err)
         } else {
           //console.log(typeof(req.user.id))
+          // createdStory = {
+          //   owner: {
+          //     id: req.user._id,
+          //     username: req.user.username
+          //   },
+          //   assignedTo: {
+          //     id: req.user._id,
+          //     username: req.user.username
+          //   }
+          //   completed: false
+          //   due: tomorrow.setDate(tomorrow.getDate() + 7)
+          //}
           createdStory.owner.id = req.user._id
           createdStory.owner.username = req.user.username
-          createdStory.assignedTo.username= req.user._id
+          createdStory.assignedTo.id= req.user._id
           createdStory.assignedTo.username = req.user.username
           createdStory.completed = false
-          var tomorrow = new Date()
-          createdStory.due  = tomorrow.setDate(tomorrow.getDate() + 7)
+          //createdStory.due  = today.setDate(today.getDate() + 7)
+
           createdStory.save()
           foundProject.stories.push(createdStory)
           foundProject.save()
@@ -85,7 +99,7 @@ router.put("/:story_id", middleware.checkStoryOwnership, function(req, res){
   //   details:    req.body.story.details,
   //   completed:  req.body.story.completedDate,
   // }
-  console.log("Update route")
+  //console.log("Update route")
   Story.findByIdAndUpdate(req.params.story_id, req.body.story, function(err, updatedStory){
     if (err) {
       console.log(err)
@@ -107,7 +121,7 @@ router.put("/:story_id", middleware.checkStoryOwnership, function(req, res){
     }
     updatedStory.save()
     //console.log("Updated Story: " + updatedStory)
-    console.log("Body", req.body)
+    //console.log("Body", req.body)
     res.redirect("/projects/" + req.params.id)
   })
 })
