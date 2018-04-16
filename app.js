@@ -26,10 +26,8 @@ var   userRoutes = require('./routes/users'),
 
 //Connect to app
 dotenv.config()
-var database_url = process.env.MONGO_URI
-//var mongo_url = process.env.MONGOLAB_URI
-//mongoose.connect("mongodb://localhost/user_stories")
-mongoose.connect(database_url)
+var mongo_url = process.env.DATABASE_URI
+mongoose.connect(mongo_url)
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + "/public"))
