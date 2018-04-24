@@ -17,13 +17,18 @@
         </div>
 
         <div class="twelve wide column">
+            <!--PERSONAL PROJECTS -->
             <div class="ui raised segment ">
+                <% if (currentUser) {%>
                 <h2 class="ui header">
                     Your  Projects
                 </h2>
                 <div class="ui items">
+                    <% var numProjects = 0 %>
                     <% projects.forEach(function(project){ %>
-                        <% if (currentUser && project.owner.id.equals(currentUser._id)) { %>
+
+                        <% if (project.owner.id.equals(currentUser._id)) { %>
+                        <% numProjects +=1 %>
                         <div class="item">
                             <div class="image">
 
@@ -62,15 +67,78 @@
                                     <p>Requests: <%= project.memberRequests.length %></p>
                                 </div>
                             </div>
-                            <% } %>
                         </div>
-                    <% }) %>
-                    </div>
+                        <% } %>  <!--//check ownership-->
+                    <% }) %>  <!--//end for each -->
+                </div>
+                    <% if (numProjects===0 ) { %>
+                        <p class="ui success message">Looks like you're ready to get started! </p>
+                    <% } %>
                     <a href="./projects/new"><button class="ui button basic big green">New</button></a>
+                <% }  else { %>
+                <p class="ui success message ">
+                    <a href="/register">Sign Up</a>  or <a href="/login">Login</a> to create a new project and start working with your team
+                </p>
+                <% } %>
+            </div>
+
+            <!--PERSONAL PROJECTS -->
+            <!--PUBLIC PROJECTS -->
+            <div class="ui raised segment">
+                <h2 class="ui header">
+                    Public  Projects
+                </h2>
+                <div class="ui items">
+                    <% projects.forEach(function(project){ %>
+                    <% if  (project.isPublic) { %>
+                    <div class="item">
+                        <div class="image">
+
+                            <% if (project.avatar) { %>
+                            <img src="<%= project.avatar %>">
+                            <% } else { %>
+                            <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                            <% } %>
+
+                        </div>
+                        <div class="content">
+                            <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>
+
+                            <div class="description">
+                                <%= project.description %>
+                            </div>
+                            <div class="meta">
+                                <span class="number"><%= project.stories.length %></span> Stories
+                            </div>
+                            <div class="extra">
+                                <p> <span>Added by: <%= project.owner.username %></span> <%=moment(project.created).fromNow() %></p>
+
+                            </div>
+                            <div class="extra">
+                                <p>Visibility: <% if (project.isPublic) { %>
+                                    Public
+                                    <% } else { %>
+                                    Private
+                                    <% }%>
+                                </p>
+                            </div>
+                            <div class="extra">
+                                <p>Members: <%= project.members.length %></p>
+                            </div>
+                            <div class="extra">
+                                <p>Requests: <%= project.memberRequests.length %></p>
+                            </div>
+                        </div>
+                    </div>
+                        <% } %>  <!-- //check public -->
+                    <% }) %>  <!-- check for Each -->
+
                 </div>
             </div>
+            <!--PUBLIC PROJECTS -->
         </div>
     </div>
 </div>
+<!--</div>-->
 
 <% include ../partials/footer.ejs %>

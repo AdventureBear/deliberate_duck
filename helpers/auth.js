@@ -24,7 +24,6 @@ exports.register = function(req,res){
   })
 }
 
-
 exports.login = function(req,res){
   res.render("login")
 }
@@ -42,6 +41,4 @@ exports.logout = function(req,res) {
   req.flash("success", "Logged you out!")
   res.redirect("/projects")
 }
-
-
-module.export = exports
+  module.export = exports
