@@ -61,9 +61,26 @@ This will install all the node_modules required for your app to run, and start t
 
 
 ## Seed File Setup
+### Getting Started
+When you run the application for the first time, and every time
+the server is restarted, seeds file will create an admin user:
+
+    username: Fig
+    password: password
+
+If you want to view projects you must be logged in. Seeds creates 2 projects 
+with existing stories for you to explore. 
+
+You can create a new user with our without admin status. The code for 
+creating an admin user is ```secret123```
+
+
+
+### Moving to Production
 
 The seeds.js file will run when you start the server using ```nodemon app.js``` or ```node app.js```. 
 Use caution as this will overwrite any previous databases using the name in your Mongo URL. 
+
 
 If you are not in production and assisting with open source development of Deliberate Duck (thank you), you 
 can leave the seedsDB() fuction in the app.js file. 
