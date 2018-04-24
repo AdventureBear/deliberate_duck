@@ -19,38 +19,53 @@
         <div class="twelve wide column">
             <div class="ui raised segment ">
                 <h2 class="ui header">
-                    All Projects
+                    Your  Projects
                 </h2>
-
                 <div class="ui items">
                     <% projects.forEach(function(project){ %>
-                    <div class="item">
-                        <div class="image">
+                        <% if (currentUser && project.owner.id.equals(currentUser._id)) { %>
+                        <div class="item">
+                            <div class="image">
 
-                            <% if (project.avatar) { %>
-                            <img src="<%= project.avatar %>">
-                            <% } else { %>
-                            <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                                <% if (project.avatar) { %>
+                                <img src="<%= project.avatar %>">
+                                <% } else { %>
+                                <img src="http://www.parade.pet/pet-photo-contest/assets/images/pet/img-pet/06.jpg">
+                                <% } %>
+
+                            </div>
+                            <div class="content">
+                                <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>
+
+                                <div class="description">
+                                   <%= project.description %>
+                                </div>
+                                <div class="meta">
+                                    <span class="number"><%= project.stories.length %></span> Stories
+                                </div>
+                                <div class="extra">
+                                    <p> <span>Added by: <%= project.owner.username %></span> <%=moment(project.created).fromNow() %></p>
+
+                                </div>
+                                <div class="extra">
+                                    <p>Visibility: <% if (project.isPublic) { %>
+                                        Public
+                                        <% } else { %>
+                                        Private
+                                        <% }%>
+                                    </p>
+                                </div>
+                                <div class="extra">
+                                    <p>Members: <%= project.members.length %></p>
+                                </div>
+                                <div class="extra">
+                                    <p>Requests: <%= project.memberRequests.length %></p>
+                                </div>
+                            </div>
                             <% } %>
-
                         </div>
-                        <div class="content">
-                            <a class="header" href="./projects/<%= project._id %>"><%= project.name %></a>
-
-                            <div class="description">
-                               <%= project.description %>
-                            </div>
-                            <div class="meta">
-                                <span class="number"><%= project.stories.length %></span> Stories
-                            </div>
-                            <div class="extra">
-                                <p> <span>Added by: <%= project.owner.username %></span> on <%=moment(project.created).fromNow() %></p>
-
-                            </div>
-                        </div>
-                    </div>
                     <% }) %>
-
+                    </div>
                     <a href="./projects/new"><button class="ui button basic big green">New</button></a>
                 </div>
             </div>

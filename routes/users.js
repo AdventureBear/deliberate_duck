@@ -4,8 +4,9 @@
 
 var express =   require("express")
 var router  =   express.Router({mergeParams: true})
-var User   =   require("../models/user")
-var Project = require("../models/project")
+var db      =   require("../models")
+//var User   =   require("../models/user")
+//var Project = require("../models/project")
 var middleware = require("../middleware")
 
 
@@ -14,7 +15,7 @@ var middleware = require("../middleware")
 //===========================
 router.get("/", middleware.isLoggedIn, function(req, res){
   if (req.user.isAdmin) {
-    User.find({}, function(err, foundUsers){
+    db.User.find({}, function(err, foundUsers){
       if (err) {
         console.log(err)
         req.flash("error", "Something went wrong")
@@ -29,13 +30,13 @@ router.get("/", middleware.isLoggedIn, function(req, res){
 })
 
 router.get("/:username", middleware.isLoggedIn, function(req,res){
-  User.findOne({username: req.user.username}, function (err, foundUser){
+  db.User.findOne({username: req.user.username}, function (err, foundUser){
     if (err) {
       console.log(err)
       req.flash("error", "Cannot Find User")
       res.redirect("/projects")
     } else {
-      Project.find().where('owner.id').equals(foundUser._id).exec(function(err, projects){
+      db.Project.find().where('owner.id').equals(foundUser._id).exec(function(err, projects){
         res.render("users/show", {user: foundUser, projects: projects})
       })
 

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "author": "Suzanne M. Atkinson",
   "license": "MIT",
@@ -26,6 +26,11 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
+    "request": "^2.85.0",
     "semantic-ui-calendar": "0.0.8"
+  },
+  "devDependencies": {
+    "jasmine": "^3.1.0",
+    "jasmine-node": "^1.14.5"
   }
 }

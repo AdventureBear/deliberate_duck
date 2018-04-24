@@ -3,7 +3,8 @@
 var express =   require("express")
 var router  =   express.Router({mergeParams: true})
 var passport = require("passport")
-var User   =   require("../models/user")
+var db      =   require("../models")
+//var User   =   require("../models/user")
 //========================================
 //Authentication Routes
 //========================================
@@ -16,13 +17,13 @@ router.get('/register', function(req,res){
 
 //user signup
 router.post("/register", function(req,res){
-  var newUser = new User(req.body)
+  var newUser = new db.User(req.body)
   //eval(require('locus'))
   // var newUser = new User({username: req.body.username})
   if (req.body.adminCode === 'secretcode123') {
     newUser.isAdmin = true
   }
-  User.register(newUser, req.body.password, function(err, user){
+  db.User.register(newUser, req.body.password, function(err, user){
     if(err) {
       console.log(err);
       req.flash("error", err.message)

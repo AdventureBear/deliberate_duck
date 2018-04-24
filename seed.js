@@ -34,6 +34,9 @@ var Projects = [{
   description: "Helping Coaches track athletes, race schedules and season planning.",
 },{
   name: "Climbing Gym Tools",
+  avatarUrl: "https://st2.depositphotos.com/1010915/10790/v/950/depositphotos_107909866-stock-illustration-triathlon-icons-background.jpg",
+  isPublic: false,
+  dateDue: today.setDate(today.getDate() + 21),
   description: "Helping Gym owners and clients enjoy the sport of indoor climbing",
 }]
 
@@ -74,7 +77,7 @@ var Stories = [
       soThat: "I can track my progress over time",
       details: "Climbing grades are general but over time tracking them can tell me if I'm improving",
       created:  Date.now(),
-      due: today.setDate(today.getDate() + 7),
+      due: today.setDate(today.getDate() + 21),
       completed: false
     },
     {
@@ -112,7 +115,7 @@ function seedDB() {
             newProject.owner =
             {
               id: user._id,
-              owner: user.username
+              username: user.username
             }
 
             Project.create(newProject, function (err, createdProject) {
@@ -164,6 +167,54 @@ function seedDB() {
 
 
             })  //project.create
+
+          // PROJECT TWO, USER 1
+          //Make new project
+          var newProject = Projects[1]
+          newProject.owner =
+            {
+              id: user._id,
+              username: user.username
+            }
+
+          Project.create(newProject, function (err, createdProject) {
+            if (err) console.log(err)
+            console.log("Project Created: " + createdProject.name)
+            //First Story
+            var newStory = Stories[1][0]
+            newStory.owner=
+              {
+                id: user._id,
+                username: user.username
+              }
+            Story.create(newStory, function (err, createdStory) {
+              if (err) console.log(err)
+              createdProject.stories.push(createdStory)
+              //createdProject.save()
+              console.log("Made new Story!" + createdStory.name)
+
+              //Second Story
+              var newStory = Stories[1][1]
+              newStory.owner=
+                {
+                  id: user._id,
+                  username: user.username
+                }
+              Story.create(newStory, function (err, createdStory2) {
+                if (err) console.log(err)
+                //console.log("Seeded DB with: " + createdStory)
+                createdProject.stories.push(createdStory2)
+                createdProject.save()
+                console.log("Made new Story! " + createdStory2.name)
+
+              })
+            })
+
+
+          })  //project.create
+
+
+
         })  //user.register
       })  //projects remove
     })  //stories remove

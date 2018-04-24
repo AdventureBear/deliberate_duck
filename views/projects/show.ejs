@@ -31,8 +31,11 @@
                                     <% } %>
                                 </div>
                                 <div class="content">
-                                    <a class="header" href="">Added by: <%= project.owner.username%> </a>
 
+                                    <a class="header" href="">Added by: <%= project.owner.username%> </a>
+                                    <div class="description">
+                                        <%= project.description %>
+                                    </div>
                                     <div class="meta">
                                     <p>Visibility:
                                     <% if (project.isPublic) { %>
@@ -47,8 +50,12 @@
                                     <div class="meta">
                                         Due: <%= project.dateDue.toDateString() %>
                                     </div>
-                                    <div class="description">
-                                        <%= project.description %>
+
+                                    <div class="meta">
+                                        <p>Members: <%= project.members.length %></p>
+                                    </div>
+                                    <div class="meta">
+                                        <p>Requests: <%= project.memberRequests.length %></p>
                                     </div>
 
                                     <% if ((currentUser && ((project.owner.id != null) && project.owner.id.equals(currentUser._id)))|| (currentUser && currentUser.isAdmin ) ){ %>

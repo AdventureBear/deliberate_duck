@@ -71,16 +71,19 @@ app.use("/projects/:id/stories", storyRoutes)
 
 
 app.get("/", function(req,res){
-  console.log("Index page")
-
-  //console.log(req.body)
   res.render("landing")
 })
 
-
+exports.closeServer = function(){
+  server.close();
+}
 
 //SERVER
 var port = process.env.PORT
-app.listen(port, function(req, res){
+
+
+
+var server = app.listen(port, function(req, res){
   console.log("User stories server is running on port ", port)
 })
+
