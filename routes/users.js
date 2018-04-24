@@ -5,8 +5,6 @@
 var express =   require("express")
 var router  =   express.Router({mergeParams: true})
 var db      =   require("../models")
-//var User   =   require("../models/user")
-//var Project = require("../models/project")
 var middleware = require("../middleware")
 
 

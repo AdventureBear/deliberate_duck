@@ -5,8 +5,6 @@
 
 var express = require('express'),
   router = express.Router({mergeParams: true}),
-  //Project = require('../models/project'),
-  //Story = require('../models/story'),
   middleware = require('../middleware'),
   moment = require('moment'),
   today = moment().format('YYYY-MM-DD'),

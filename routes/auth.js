@@ -1,65 +1,23 @@
-
-
 var express =   require("express")
 var router  =   express.Router({mergeParams: true})
 var passport = require("passport")
 var db      =   require("../models")
-//var User   =   require("../models/user")
+var helpers = require('../helpers/auth')
+
 //========================================
 //Authentication Routes
 //========================================
 
-//show signup form
-router.get('/register', function(req,res){
-  res.render("register")
-})
+router.route('/register')
+  .get(helpers.show)
+  .post(helpers.register)
+
+router.route('/login')
+  .get(helpers.login)
+  .post(helpers.authenticate)
 
 
-//user signup
-router.post("/register", function(req,res){
-  var newUser = new db.User(req.body)
-  //eval(require('locus'))
-  // var newUser = new User({username: req.body.username})
-  if (req.body.adminCode === 'secretcode123') {
-    newUser.isAdmin = true
-  }
-  db.User.register(newUser, req.body.password, function(err, user){
-    if(err) {
-      console.log(err);
-      req.flash("error", err.message)
-      return res.render('register')
-    }  else {
-      passport.authenticate("local")(req, res, function () {
-        req.flash("success", "Successfully signed up. Welcome" + user.username)
-        res.redirect("/projects")
-      })
-    }
-  })
-})
-
-
-//LOGIN ROUTES
-//render login form
-router.get("/login", function(req,res){
-  res.render("login")
-})
-
-router.post("/login", passport.authenticate("local",
-  {
-    successRedirect: "/projects",
-    failureRedirect: "/login"
-  }), function(req,res) {
-
-})
-
-
-//Logout Routes
-router.get("/logout", function(req,res) {
-  req.logout()
-  req.flash("success", "Logged you out!")
-  res.redirect("/projects")
-})
-
-
+router.route('/logout')
+  .get(helpers.logout)
 
 module.exports = router
